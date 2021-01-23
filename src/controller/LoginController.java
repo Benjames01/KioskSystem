@@ -1,13 +1,13 @@
-package controllers;
+package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import models.Credentials;
-import views.StaffLoginView;
+import view.StaffLoginView;
 
 public class LoginController {
-    private Credentials model;
-    private StaffLoginView view;
+    Credentials model;
+    StaffLoginView view;
  
     public LoginController(StaffLoginView view){
         this.view = view;

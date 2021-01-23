@@ -3,11 +3,21 @@ package models;
 public class Stock {
 	
 	int code;
+	int quantity = 1;
+	
 	String name;
 	float price;
 	
+	
 	public Stock() {
 		
+	}
+	
+	public Stock(int code, String name, float price, int quantity) {
+		this.code = code;
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
 	}
 	
 	public Stock(int code, String name, float price) {
@@ -40,7 +50,13 @@ public class Stock {
 		this.price = price;
 	}
 	
+	public int getQuantity() {
+		return quantity;
+	}
 	
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 	
 	
 
