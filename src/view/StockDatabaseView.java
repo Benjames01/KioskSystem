@@ -8,15 +8,18 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 
 import models.Stock;
 
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.JScrollPane;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -25,6 +28,9 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 	private static final long serialVersionUID = -8894773959386302085L;
 	
 	JTable stockList;
+	JPopupMenu tableControls;
+	JMenuItem editItem;
+	
 	JTextField txtCode;
 	JTextField txtName;
 	JTextField txtPrice;
@@ -47,11 +53,9 @@ public class StockDatabaseView extends JFrame implements ActionListener {
         });
     }
     
-    public void setupLayout() {
-    	
+    public void setupLayout() {    	
         this.setResizable(false);
-        this.setPreferredSize(new Dimension(500,500));
-        
+        this.setPreferredSize(new Dimension(500,500));    
     }
     
     public void setupContent() {
@@ -115,6 +119,12 @@ public class StockDatabaseView extends JFrame implements ActionListener {
         btnSaveButton.setBounds(395, 36, 89, 23);
         editPanel.add(btnSaveButton);
         
+        tableControls = new JPopupMenu();
+        editItem = new JMenuItem("Edit");
+        tableControls.add(editItem);
+        stockList.setComponentPopupMenu(tableControls);
+        
+        
         this.pack();
     }
     
@@ -124,8 +134,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
     public JTable getStockList() {
     	return stockList;
     }
-    
-    
+      
     public void setStockCode(int code) {
     	txtCode.setText(Integer.toString(code));
     }
@@ -139,7 +148,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
     }
     
     public void setStockQuantity(int quantity) {
-    	txtCode.setText(Integer.toString(quantity));
+    	txtQuantity.setText(Integer.toString(quantity));
     }
     
     public int getCode() {
@@ -157,20 +166,26 @@ public class StockDatabaseView extends JFrame implements ActionListener {
     public int getQuantity() {
     	return parseInt(txtQuantity.getText());
     }
-    
-    public void addStockListener(ActionListener listener) {
-    	btnSaveButton.addActionListener(listener);
-    }
-    
-    public void displayMessage(String msg) {
-    	JOptionPane.showMessageDialog(this, msg);
-    }
-    
+     
     public Stock getStock() {
     	editStock = new Stock(getCode(), getName(), getPrice(), getQuantity());	
     	return editStock;
     }
     
+    public void displayStock(Stock stock) {
+    	setStockCode(stock.getCode());
+    	setStockName(stock.getName());
+    	setStockPrice(stock.getPrice());
+    	setStockQuantity(stock.getQuantity());
+    }
+    
+    public int getSelectedStockIndex() {
+    	  return stockList.convertRowIndexToModel(stockList.getSelectedRow());
+    }
+
+    public JPopupMenu getPopup() {
+    	return tableControls;
+    }
     
     int parseInt(String text) {
     	int parsedInt = 0;
@@ -190,6 +205,22 @@ public class StockDatabaseView extends JFrame implements ActionListener {
     		displayMessage(e.getMessage());
     	}
 		return parsedFloat;
+    }
+    
+    public void addStockListener(ActionListener listener) {
+    	btnSaveButton.addActionListener(listener);
+    }
+    
+    public void addEditListener(ActionListener listener) {
+    	editItem.addActionListener(listener);
+    }
+    
+    public void addPopupMenuListener(PopupMenuListener listener) {
+    	tableControls.addPopupMenuListener(listener);
+    }
+    
+    public void displayMessage(String msg) {
+    	JOptionPane.showMessageDialog(this, msg);
     }
  
       
