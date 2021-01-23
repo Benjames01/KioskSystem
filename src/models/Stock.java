@@ -2,11 +2,11 @@ package models;
 
 public class Stock {
 	
-	int code;
+	int code = 1;
 	int quantity = 1;
 	
-	String name;
-	float price;
+	String name = "";
+	float price = 0.0f;
 	
 	
 	public Stock() {

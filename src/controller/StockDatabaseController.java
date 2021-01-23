@@ -1,8 +1,9 @@
 package controller;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import models.Stock;
 import models.StockDatabase;
 import view.StockDatabaseView;
 
@@ -13,21 +14,28 @@ public class StockDatabaseController {
 	
 	public StockDatabaseController(StockDatabaseView view, StockDatabase model) {
 		this.view = view;
+		this.model = model;
 		
-		view.addDBListener(new DBListener());
+		view.addStockListener(new StockListener());
 		
 		view.getStockList().setModel(model);
 		
 		
 	}
 	
-	class DBListener implements PropertyChangeListener{
+	class StockListener implements ActionListener{
 
 		@Override
-		public void propertyChange(PropertyChangeEvent arg0) {
-			
+		public void actionPerformed(ActionEvent e) {
+			Stock stock = view.getStock();
+					
+			view.displayMessage("Stock: " + stock.getCode() + " " + stock.getName() + " " +  stock.getPrice() + " " +  stock.getQuantity());
+			model.addStock(stock);
+			model.fireTableDataChanged();
 			
 		}
+
+
 	
 	}
 }

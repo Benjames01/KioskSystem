@@ -6,12 +6,9 @@ import javax.swing.table.AbstractTableModel;
 
 public class StockDatabase extends AbstractTableModel {
 	
-	
-	/**
-	 * 
-	 */
 	static final long serialVersionUID = 3883657244070052671L;
 	String[] columnNames = {"code", "name", "price", "quantity"}; 
+	
 	ArrayList<Stock> stockDatabase = new ArrayList<Stock>();
 	
 	public StockDatabase() {
@@ -39,17 +36,33 @@ public class StockDatabase extends AbstractTableModel {
 	}
 	
 	public void addStock(Stock stock) {
-		stockDatabase.add(stock);
+		Stock oldStock = getStockFromCode(stock.getCode());
+		if( oldStock != null) {
+			editStock(oldStock, stock);
+		} else {
+			stockDatabase.add(stock);
+		}		
 	}
 	
 	public void removeStock(Stock stock) {
 		stockDatabase.remove(stock);
 	}
 
-	public void replaceStock(Stock oldStock, Stock newStock) {
-		int index = stockDatabase.indexOf(oldStock);
+	public void editStock(Stock stock, Stock newStock) {
+		int index = stockDatabase.indexOf(stock);
 		stockDatabase.set(index, newStock);
 	}
+	
+	
+	public Stock getStockFromCode(int code) {	
+		for(Stock stock: stockDatabase) {
+			if(stock.code == code) {
+				return stock;
+			}
+		}
+		return null;
+	}
+	
 	
 	public ArrayList<Stock> getEmptyStock(){
 		

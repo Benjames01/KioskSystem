@@ -11,8 +11,10 @@ import view.StockDatabaseView;
 
 public class App {
     public static void main(String[] args) {
-       // StaffLoginView view       = new StaffLoginView();
-       // LoginController controller = new LoginController(view);     
+		/*
+		 * StaffLoginView view = new StaffLoginView(); LoginController controller = new
+		 * LoginController(view);
+		 */   
     	
         StockDatabase stockDatabase = new StockDatabase(new ArrayList<Stock>());
         
