@@ -27,7 +27,7 @@ public class StaffLoginView extends JFrame implements ActionListener {
 	Credentials employee;
 	
     public StaffLoginView(){
-        super("Login ");
+        super("use username & password: admin");
  
         txtUsername = new JTextField(15);
         txtPassword = new JPasswordField(15);
@@ -41,7 +41,7 @@ public class StaffLoginView extends JFrame implements ActionListener {
         content.add(new JLabel("Password:"));
         content.add(txtPassword);
         content.add(btnLogin);
- 
+        
         btnLogin.addActionListener(this);
  
         this.setContentPane(content);
@@ -58,7 +58,6 @@ public class StaffLoginView extends JFrame implements ActionListener {
  
     public Credentials getUser(){
     	employee = new Credentials(txtUsername.getText(), new String(txtPassword.getPassword()));
-    	showMessage(txtUsername.getText() + " : " + new String(txtPassword.getPassword()));
         return employee;       
     }
  

@@ -67,6 +67,10 @@ public class StockDatabase extends AbstractTableModel {
 		return stockDatabase.get(index);
 	}
 	
+	public Stock removeStockAt(int index) {	
+		return stockDatabase.remove(index);
+	}
+	
 	public ArrayList<Stock> getEmptyStock(){
 		
 		ArrayList<Stock> emptyStock = new ArrayList<Stock>();

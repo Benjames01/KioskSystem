@@ -2,8 +2,13 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import models.Credentials;
+import models.Stock;
+import models.StockDatabase;
 import view.StaffLoginView;
+import view.StockDatabaseView;
 
 public class LoginController {
     Credentials model;
@@ -20,7 +25,14 @@ public class LoginController {
             try {
                 model = view.getUser();
                 if(checkCredentials(model)){
-                    view.showMessage("Login succesfully!");
+                    view.showMessage("Welcome, " + model.getUsername() + "!");
+                              
+                    StockDatabaseView stockView = new StockDatabaseView();
+                    StockDatabaseController controller = new StockDatabaseController(stockView);  
+                    
+                    stockView.setVisible(true);
+                    view.setVisible(false);
+                    
                 }else{
                     view.showMessage("Invalid Username/Password!");
                 }                
@@ -30,7 +42,7 @@ public class LoginController {
         }
     }
  
-    public boolean checkCredentials(Credentials user) throws Exception {	
+    public boolean checkCredentials(Credentials user) {	
     	if (user.getUsername().equalsIgnoreCase("admin") && user.getPassword().equals("admin")) {
     		return true;
     	}

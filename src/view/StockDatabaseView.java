@@ -30,6 +30,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 	JTable stockList;
 	JPopupMenu tableControls;
 	JMenuItem editItem;
+	JMenuItem deleteItem;
 	
 	JTextField txtCode;
 	JTextField txtName;
@@ -37,6 +38,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 	JTextField txtQuantity;
 	
 	JButton btnSaveButton;
+	JButton btnNewButton;
 	
 	Stock editStock = new Stock();
 	
@@ -119,9 +121,19 @@ public class StockDatabaseView extends JFrame implements ActionListener {
         btnSaveButton.setBounds(395, 36, 89, 23);
         editPanel.add(btnSaveButton);
         
+        btnNewButton = new JButton("New");
+        btnNewButton.setBounds(298, 36, 89, 23);
+        editPanel.add(btnNewButton);
+        
+        JLabel lblNewLabel_4 = new JLabel("Right click item to edit/delete.");
+        lblNewLabel_4.setBounds(10, 40, 180, 14);
+        editPanel.add(lblNewLabel_4);
+        
         tableControls = new JPopupMenu();
         editItem = new JMenuItem("Edit");
+        deleteItem = new JMenuItem("Delete");
         tableControls.add(editItem);
+        tableControls.add(deleteItem);
         stockList.setComponentPopupMenu(tableControls);
         
         
@@ -211,8 +223,16 @@ public class StockDatabaseView extends JFrame implements ActionListener {
     	btnSaveButton.addActionListener(listener);
     }
     
+    public void addNewBtnListener(ActionListener listener) {
+    	btnNewButton.addActionListener(listener);
+    }
+    
     public void addEditListener(ActionListener listener) {
     	editItem.addActionListener(listener);
+    }
+    
+    public void addDeleteListener(ActionListener listener) {
+    	deleteItem.addActionListener(listener);
     }
     
     public void addPopupMenuListener(PopupMenuListener listener) {
@@ -221,6 +241,10 @@ public class StockDatabaseView extends JFrame implements ActionListener {
     
     public void displayMessage(String msg) {
     	JOptionPane.showMessageDialog(this, msg);
+    }
+    
+    public int getConfirmation(String msg) {	
+    	return JOptionPane.showConfirmDialog(this, msg);
     }
  
       
