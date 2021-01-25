@@ -2,12 +2,12 @@ package system;
 
 import java.util.ArrayList;
 
-import controller.LoginController;
-import controller.StockDatabaseController;
+import controllers.LoginController;
+import controllers.StockDatabaseController;
 import models.Stock;
 import models.StockDatabase;
-import view.StaffLoginView;
-import view.StockDatabaseView;
+import views.StaffLoginView;
+import views.StockDatabaseView;
 
 public class App {
 	public static void main(String[] args) {

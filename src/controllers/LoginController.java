@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import models.Credentials;
 import models.Stock;
 import models.StockDatabase;
-import view.StaffLoginView;
-import view.StockDatabaseView;
+import views.StaffLoginView;
+import views.StockDatabaseView;
 
 public class LoginController {
     Credentials model;

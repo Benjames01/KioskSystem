@@ -1,8 +1,9 @@
-package controller;
+package controllers;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
@@ -11,7 +12,7 @@ import javax.swing.event.PopupMenuListener;
 
 import models.Stock;
 import models.StockDatabase;
-import view.StockDatabaseView;
+import views.StockDatabaseView;
 
 public class StockDatabaseController {
 	
@@ -21,7 +22,11 @@ public class StockDatabaseController {
 	public StockDatabaseController(StockDatabaseView view) {
 		this.view = view;
 				
-         model = new StockDatabase(new ArrayList<Stock>());
+         try {
+			model = new StockDatabase(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         
          model.addStock( new Stock(1, "beans", 2.00f, 15));
          model.addStock( new Stock(2, "bacon", 3.50f, 3));
@@ -97,9 +102,7 @@ public class StockDatabaseController {
 		}
 
 		@Override
-		public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-			// TODO Auto-generated method stub
-			
+		public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {		
 		}
 
 		

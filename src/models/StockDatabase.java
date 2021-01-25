@@ -1,22 +1,37 @@
 package models;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
+
+import persistence.StockDAO;
 
 public class StockDatabase extends AbstractTableModel {
 	
 	static final long serialVersionUID = 3883657244070052671L;
 	String[] columnNames = {"code", "name", "price", "quantity"}; 
 	
+	StockDAO dao;
+	
 	ArrayList<Stock> stockDatabase = new ArrayList<Stock>();
 	
-	public StockDatabase() {
-		
-	}
+	boolean useDB;
 	
-	public StockDatabase(ArrayList<Stock> stockDatabase) {
-		this.stockDatabase = stockDatabase;
+
+	public StockDatabase(boolean useDB) throws SQLException {
+		this.useDB = useDB;
+		try {
+			this.dao = new StockDAO();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if (useDB) {
+			
+		}
 	}
 	
 	
