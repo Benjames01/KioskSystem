@@ -35,7 +35,7 @@ public class StockView extends JPanel {
 	JSpinner sliderQuantity;
 
 	Stock stock;
-	
+
 	String addButtonString = "Add Basket";
 
 	public StockView(Stock stock) {		

@@ -28,7 +28,7 @@ public class StockDAO extends DAO {
 			Statement sql = getConnection().createStatement();
 			ResultSet results = sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='stock'");
 
-			
+
 			if(!results.next()) {
 				// Create the stock table
 				System.out.println("Building table with data");
@@ -78,20 +78,20 @@ public class StockDAO extends DAO {
 
 				sql2.close();
 				System.out.println("Stock table has been populated with data.");	
-				
+
 			} else {
 				System.out.println("Table already exists");
 			}
-			
+
 			sql.close();
 			sql = getConnection().createStatement();
 			results = sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='orders'");
-			
+
 
 			if(!results.next()) {
 				// Create the stock table
 				System.out.println("Building order table");
-								
+
 				Statement sql2 = getConnection().createStatement();
 				sql2.executeUpdate("CREATE TABLE IF NOT EXISTS orders(id integer PRIMARY KEY,"
 						+ "code integer,"
@@ -103,7 +103,7 @@ public class StockDAO extends DAO {
 			} else {
 				System.out.println("Order Table exists");
 			}
-			
+
 			sql.close();
 
 		}
@@ -191,17 +191,17 @@ public class StockDAO extends DAO {
 
 		return allStock;
 	}
-	
-	
+
+
 	public ArrayList<StockView> getStockDisplayContainers(ArrayList<Stock> stockList) {
 		ArrayList<StockView> stockDisplayList = new ArrayList<>();
-		
+
 		for(Stock stock : stockList) {
 			StockView temp = new StockView(stock);
-			
+
 			stockDisplayList.add(temp);
 		}
-		
+
 		return stockDisplayList;
 	}
 

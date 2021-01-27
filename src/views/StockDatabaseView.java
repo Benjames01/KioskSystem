@@ -32,9 +32,9 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = -8894773959386302085L;
 
-	
+
 	ArrayList<OrderView> orderList;
-	
+
 	JTable stockList;
 
 	JPopupMenu tableControls;
@@ -53,10 +53,10 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 
 	JScrollPane scrollOrderPane;
 	JPanel orderPanel;
-	
-	
+
+
 	JPanel orderContainer;
-	
+
 	Stock editStock = new Stock();
 
 	public StockDatabaseView(){
@@ -158,7 +158,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		panel.add(btnSwitchToKiosk);
 
 		tableControls = new JPopupMenu();
-		
+
 		editItem = new JMenuItem("Edit");
 		deleteItem = new JMenuItem("Delete");
 		orderItem = new JMenuItem("Order");
@@ -178,17 +178,14 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 	public JTable getStockList() {
 		return stockList;
 	}
-	
-	
 
-	
 	public void setOrderList(ArrayList<OrderView> orderList) {	
 		this.orderList = orderList;
-		
+
 		if(scrollOrderPane != null) {
 			orderPanel.remove(scrollOrderPane);
 		}
-		
+
 
 		orderContainer = new JPanel();
 		orderContainer.setLayout(new GridLayout(100, 1, 0, 10));
@@ -200,7 +197,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 
 		scrollOrderPane = new JScrollPane(orderContainer);
 		orderPanel.add(scrollOrderPane);
-		
+
 		this.pack();
 	}
 
@@ -210,14 +207,14 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 				return container;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public void removeOrderView(OrderView orderView) {
 		orderList.remove(orderView);
 	}
-	
+
 	public OrderView addButtonListenerToOrderView(ActionListener listener, int id) {
 		for(OrderView container : orderList) {
 			if(container.getOrder().getID() == id) {
@@ -225,11 +222,11 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 				container.getButton().addActionListener(listener);
 			}
 		}
-		
+
 		return null;
 	}
-	
-	
+
+
 	public void setStockCode(int code) {
 		txtCode.setText(Integer.toString(code));
 	}
@@ -317,7 +314,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 	public void addDeleteListener(ActionListener listener) {
 		deleteItem.addActionListener(listener);
 	}
-	
+
 	public void addOrderListener(ActionListener listener) {
 		orderItem.addActionListener(listener);
 	}
@@ -336,7 +333,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 	public int getConfirmation(String msg) {	
 		return JOptionPane.showConfirmDialog(this, msg);
 	}
-	
+
 	public void addOrderButtonListener(ActionListener listener) {
 		for(OrderView container: orderList) {
 			container.getButton().addActionListener(listener);

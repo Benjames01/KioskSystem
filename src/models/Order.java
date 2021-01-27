@@ -8,7 +8,7 @@ public class Order extends Stock{
 		super(code, name, price, quantity);
 		this.id = id;
 	}
-	
+
 	public Order(int code, String name, float price, int quantity) {
 		super(code, name, price, quantity);
 	}

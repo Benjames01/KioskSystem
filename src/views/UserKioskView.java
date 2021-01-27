@@ -116,7 +116,7 @@ public class UserKioskView extends JFrame implements ActionListener{
 		});
 	}
 
-	
+
 	public JLabel getTotalLabel()
 	{
 		return lblTotalPrice;

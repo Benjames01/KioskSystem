@@ -54,7 +54,7 @@ public class StockDatabaseController {
 
 		view.getStockList().setModel(model);
 		view.setOrderList(ordersList);
-		
+
 		view.addOrderButtonListener(new OrderButtonListener());
 
 		ArrayList<Stock> emptyStockList = model.getEmptyStock();
@@ -117,32 +117,32 @@ public class StockDatabaseController {
 			}		
 		}
 	}
-	
+
 	class OrderButtonListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {		
-			
+
 			JButton pressedButton = (JButton) e.getSource();
 			OrderView display = view.getOrderViewFromButton(pressedButton);
-			
+
 			if (display != null) {
-				
+
 				Order order = display.getOrder();
 				Stock stock = model.getStockFromCode(order.getCode());
-						
+
 				stock.setQuantity(order.getQuantity() + stock.getQuantity());
-				
+
 				model.addStock(stock);
 				model.fireTableDataChanged();
-				
+
 				orderDB.removeOrder(order.getID());
 				ordersList = orderDB.getOrderViews(orderDB.getOrders());
-				
+
 				view.setOrderList(ordersList);
 				view.addOrderButtonListener(new OrderButtonListener());
 			}
-			
+
 		}
 	}
 
@@ -170,7 +170,7 @@ public class StockDatabaseController {
 					ArrayList<Order> orders = orderDB.getOrders();
 
 					ArrayList<OrderView> orderViews = orderDB.getOrderViews(orders);
-				
+
 					view.setOrderList(orderViews);	
 					view.addOrderButtonListener(new OrderButtonListener());
 				}

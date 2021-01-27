@@ -22,7 +22,7 @@ public class OrderDAO extends DAO {
 		PreparedStatement addSQL = null;
 		System.out.println("Creating order..");
 		try {
-			
+
 			addSQL = getConnection()
 					.prepareStatement("INSERT INTO orders(code, name, quantity) values(?,?,?);",
 							addSQL.RETURN_GENERATED_KEYS);

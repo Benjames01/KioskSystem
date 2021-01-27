@@ -18,17 +18,17 @@ public class OrderView extends JPanel {
 	JLabel lblStockName;
 	JLabel lblQuantity;
 	JLabel lblOrderID;
-	
+
 	JButton btnAcceptOrder;
 
 	Order order;
-	
+
 
 	public OrderView(Order order) {
-		
+
 		this.setPreferredSize(new Dimension(400,45));
 		this.order = order;
-		
+
 		setLayout(null);
 
 		lblStockName = new JLabel("Stock Name: " + order.getName());
@@ -46,7 +46,7 @@ public class OrderView extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 43, 450, 2);
 		add(separator);	
-		
+
 		lblOrderID = new JLabel("Order ID: " + order.getID());
 		lblOrderID.setBounds(10, 7, 114, 14);
 		add(lblOrderID);
@@ -63,7 +63,7 @@ public class OrderView extends JPanel {
 	public JButton getButton() {
 		return btnAcceptOrder;
 	}
-	
+
 	public Order getOrder() {
 		return order;
 	}

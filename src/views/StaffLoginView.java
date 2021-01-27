@@ -18,55 +18,55 @@ import models.Credentials;
 
 public class StaffLoginView extends JFrame implements ActionListener {
 
-	
+
 	private static final long serialVersionUID = -299886269054918983L;
-	
+
 	JTextField txtUsername;
 	JPasswordField txtPassword;
 	JButton btnLogin;
 	Credentials employee;
-	
-    public StaffLoginView(){
-        super("use username & password: admin");
- 
-        txtUsername = new JTextField(15);
-        txtPassword = new JPasswordField(15);
-        txtPassword.setEchoChar('*');
-        btnLogin = new JButton("Login");
- 
-        JPanel content = new JPanel();
-        content.setLayout(new FlowLayout());
-        content.add(new JLabel("Username:"));
-        content.add(txtUsername);
-        content.add(new JLabel("Password:"));
-        content.add(txtPassword);
-        content.add(btnLogin);
-        
-        btnLogin.addActionListener(this);
- 
-        this.setContentPane(content);
-        this.pack();
- 
-        this.addWindowListener(new WindowAdapter(){
-            public void windowClosing(WindowEvent e){
-                System.exit(0);
-            }
-        });
-    }
-    public void actionPerformed(ActionEvent e) {
-    }
- 
-    public Credentials getUser(){
-    	employee = new Credentials(txtUsername.getText(), new String(txtPassword.getPassword()));
-        return employee;       
-    }
- 
-    public void showMessage(String msg){
-        JOptionPane.showMessageDialog(this, msg);
-    }
- 
-    public void addLoginListener(ActionListener log) {
-          btnLogin.addActionListener(log);
-    }
+
+	public StaffLoginView(){
+		super("use username & password: admin");
+
+		txtUsername = new JTextField(15);
+		txtPassword = new JPasswordField(15);
+		txtPassword.setEchoChar('*');
+		btnLogin = new JButton("Login");
+
+		JPanel content = new JPanel();
+		content.setLayout(new FlowLayout());
+		content.add(new JLabel("Username:"));
+		content.add(txtUsername);
+		content.add(new JLabel("Password:"));
+		content.add(txtPassword);
+		content.add(btnLogin);
+
+		btnLogin.addActionListener(this);
+
+		this.setContentPane(content);
+		this.pack();
+
+		this.addWindowListener(new WindowAdapter(){
+			public void windowClosing(WindowEvent e){
+				System.exit(0);
+			}
+		});
+	}
+	public void actionPerformed(ActionEvent e) {
+	}
+
+	public Credentials getUser(){
+		employee = new Credentials(txtUsername.getText(), new String(txtPassword.getPassword()));
+		return employee;       
+	}
+
+	public void showMessage(String msg){
+		JOptionPane.showMessageDialog(this, msg);
+	}
+
+	public void addLoginListener(ActionListener log) {
+		btnLogin.addActionListener(log);
+	}
 
 }
