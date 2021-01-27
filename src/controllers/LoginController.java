@@ -31,7 +31,7 @@ public class LoginController {
                     StockDatabaseController controller = new StockDatabaseController(stockView);  
                     
                     stockView.setVisible(true);
-                    view.setVisible(false);
+                    view.dispose();
                     
                 }else{
                     view.showMessage("Invalid Username/Password!");

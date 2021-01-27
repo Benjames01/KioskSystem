@@ -20,17 +20,16 @@ public class StockDatabase extends AbstractTableModel {
 	
 
 	public StockDatabase(boolean useDB) throws SQLException {
-		this.useDB = useDB;
-		try {
-			this.dao = new StockDAO();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
+		this.useDB = useDB;	
 		if (useDB) {
-			
+			try {
+				dao = new StockDAO();
+				stockDatabase = dao.getAllStock();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -57,15 +56,29 @@ public class StockDatabase extends AbstractTableModel {
 		} else {
 			stockDatabase.add(stock);
 		}		
+		
+		if(useDB) {
+			dao.addStock(stock);
+		}
+		
 	}
 	
 	public void removeStock(Stock stock) {
 		stockDatabase.remove(stock);
+		
+		if(useDB) {
+			dao.removeStock(stock);
+		}
+		
 	}
 
 	public void editStock(Stock stock, Stock newStock) {
 		int index = stockDatabase.indexOf(stock);
 		stockDatabase.set(index, newStock);
+			
+		if(useDB) {
+			dao.addStock(stock);
+		}
 	}
 	
 	
@@ -82,8 +95,10 @@ public class StockDatabase extends AbstractTableModel {
 		return stockDatabase.get(index);
 	}
 	
-	public Stock removeStockAt(int index) {	
-		return stockDatabase.remove(index);
+	public void removeStockAt(int index) {			
+		dao.removeStock(stockDatabase.get(index));
+		stockDatabase.remove(index);
+		
 	}
 	
 	public ArrayList<Stock> getEmptyStock(){
@@ -98,6 +113,14 @@ public class StockDatabase extends AbstractTableModel {
 		
 		return emptyStock;
 	}
+	
+	public ArrayList<Stock> getAllStock(){
+		
+		return dao.getAllStock();
+
+	}
+	
+	
 
 	@Override
 	public Class<?> getColumnClass(int col) {

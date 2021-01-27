@@ -67,6 +67,6 @@ public class StaffLoginView extends JFrame implements ActionListener {
  
     public void addLoginListener(ActionListener log) {
           btnLogin.addActionListener(log);
-        }
+    }
 
 }

@@ -58,6 +58,11 @@ public class Stock {
 		this.quantity = quantity;
 	}
 	
+	public String toString() {
+		return "code:[" + code + "] " + name;
+		
+	}
+	
 	
 
 }
