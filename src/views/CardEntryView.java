@@ -21,6 +21,10 @@ public class CardEntryView extends JFrame {
 
 	JLabel lblCompanyName;
 
+	
+	/**
+	 * Setup and creates the CardEntryView
+	 */
 	public CardEntryView() {
 		this.setPreferredSize(new Dimension(600, 400));
 		getContentPane().setPreferredSize(new Dimension(600, 100));
@@ -60,6 +64,7 @@ public class CardEntryView extends JFrame {
 
 
 		this.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.out.println("Dispose");
 				getFrame().dispose();
@@ -69,12 +74,16 @@ public class CardEntryView extends JFrame {
 		this.pack();
 
 	}
-
-
+	
+	/**
+	 * Getters
+	 *
+	 */
+	
 	JFrame getFrame() {
 		return this;
 	}
-
+	
 	public JTextField getTextCardNumberField() {
 		return textCardNumberField;
 	}
@@ -91,10 +100,18 @@ public class CardEntryView extends JFrame {
 		return btnNewButton;
 	}
 
+	/**
+	 * Used to add an action listener to the btnNewButton
+	 * @param listener
+	 */
 	public void addButtonListener(ActionListener listener) {
 		this.btnNewButton.addActionListener(listener);
 	}
 
+	/**
+	 * Used to display a message to the user
+	 * @param msg
+	 */
 	public void displayMessage(String msg) {
 		JOptionPane.showMessageDialog(null, msg);
 	}

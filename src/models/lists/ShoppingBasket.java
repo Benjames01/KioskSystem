@@ -18,6 +18,10 @@ public class ShoppingBasket {
 	}
 
 
+	
+	/*
+	 * Getters
+	 */
 	public ArrayList<BasketView> getBasket() {
 		return basket;
 	}

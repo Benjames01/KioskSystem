@@ -14,6 +14,10 @@ public class Order extends Stock {
 	}
 
 
+	/*
+	 * Getters and setters
+	 */
+
 	public int getID() {
 		return id;
 	}

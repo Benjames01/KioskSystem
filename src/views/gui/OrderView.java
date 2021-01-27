@@ -17,7 +17,9 @@ public class OrderView extends JPanel {
 
 	Order order;
 
-
+	/*
+	 * Used to setup the OrderView with the given order
+	 */
 	public OrderView(Order order) {
 
 		this.setPreferredSize(new Dimension(400, 45));
@@ -45,6 +47,10 @@ public class OrderView extends JPanel {
 		lblOrderID.setBounds(10, 7, 114, 14);
 		add(lblOrderID);
 	}
+	
+	/**
+	 * Getters 
+	 */
 
 	public JLabel getLblStockName() {
 		return lblStockName;

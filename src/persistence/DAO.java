@@ -20,7 +20,10 @@ public class DAO {
 	public DAO() throws SQLException, ClassNotFoundException {
 		setupConnection();
 	}
-
+	
+	/*
+	 * Create the connection to the database that will be shared by all DAOs
+	 */
 	private static void setupConnection() {
 		if (connection == null) {
 			databasePath = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
@@ -44,6 +47,10 @@ public class DAO {
 			}
 		}
 	}
+	
+	/*
+	 * Return the current connection if existing or a new connection if not
+	 */
 
 	public Connection getConnection() {
 		try {

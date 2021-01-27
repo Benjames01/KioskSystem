@@ -4,6 +4,12 @@ import controllers.UserKioskViewController;
 import views.UserKioskView;
 
 public class App {
+	
+	
+	/**
+	 * System entry point
+	 * @param args unused
+	 */
 	public static void main(String[] args) {
 
 		UserKioskView userView = new UserKioskView();

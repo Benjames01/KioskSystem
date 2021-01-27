@@ -19,6 +19,11 @@ public class StockDAO extends DAO {
 		initialise();
 	}
 
+	
+	/**
+	 * Initialise the tables in the database if not currently existing
+	 * @throws SQLException
+	 */
 	void initialise() throws SQLException {
 
 		if (!hasData) {
@@ -109,6 +114,10 @@ public class StockDAO extends DAO {
 
 	}
 
+	/**
+	 * Adds the given stock to the 'stock' table in the database
+	 * @param stock
+	 */
 	public void addStock(Stock stock) {
 
 		PreparedStatement addSQL = null;
@@ -132,7 +141,11 @@ public class StockDAO extends DAO {
 		}
 
 	}
-
+	
+	/**
+	 * Removes the given stock from the 'stock' table in the database
+	 * @param stock
+	 */
 	public void removeStock(Stock stock) {
 		PreparedStatement removeSQL = null;
 
@@ -156,7 +169,10 @@ public class StockDAO extends DAO {
 
 	}
 
-
+	/**
+	 * returns all the stock in the 'stock' table in the database
+	 * @return ArrayList<Stock>
+	 */
 	public ArrayList<Stock> getAllStock() {
 		ArrayList<Stock> allStock = new ArrayList<Stock>();
 
@@ -192,6 +208,11 @@ public class StockDAO extends DAO {
 	}
 
 
+	/**
+	 * Creates and returns all the StockDisplayContainers from given stockList
+	 * @param stockList
+	 * @return
+	 */
 	public ArrayList<StockView> getStockDisplayContainers(ArrayList<Stock> stockList) {
 		ArrayList<StockView> stockDisplayList = new ArrayList<>();
 
@@ -205,6 +226,11 @@ public class StockDAO extends DAO {
 	}
 
 
+	/**
+	 * returns all the empty stock from the 'stock' table in the database
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Stock> getEmptyStock() throws SQLException {
 		ArrayList<Stock> emptyStock = new ArrayList<Stock>();
 

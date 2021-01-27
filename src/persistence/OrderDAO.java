@@ -16,7 +16,11 @@ public class OrderDAO extends DAO {
 		super();
 
 	}
-
+	
+	/**
+	 * Add order to the 'orders' table in the database
+	 * @param order
+	 */
 	public void addOrder(Order order) {
 		PreparedStatement addSQL = null;
 		System.out.println("Creating order..");
@@ -24,7 +28,7 @@ public class OrderDAO extends DAO {
 
 			addSQL = getConnection()
 					.prepareStatement("INSERT INTO orders(code, name, quantity) values(?,?,?);",
-							addSQL.RETURN_GENERATED_KEYS);
+							Statement.RETURN_GENERATED_KEYS);
 
 			addSQL.setInt(1, order.getCode());
 			addSQL.setString(2, order.getName());
@@ -57,6 +61,10 @@ public class OrderDAO extends DAO {
 		}
 	}
 
+	/**
+	 * Remove the order with given id from the 'orders' table in the database
+	 * @param id
+	 */
 	public void removeOrder(int id) {
 		PreparedStatement removeSQL = null;
 
@@ -78,6 +86,9 @@ public class OrderDAO extends DAO {
 		}
 	}
 
+	/*
+	 * Returns all the orders from the database
+	 */
 	public ArrayList<Order> getAllOrders() {
 		ArrayList<Order> allOrders = new ArrayList<Order>();
 

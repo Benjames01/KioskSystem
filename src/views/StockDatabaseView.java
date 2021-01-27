@@ -43,6 +43,10 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 
 	Stock editStock = new Stock();
 
+	
+	/**
+	 * Defines and setups the StockDatabaseView
+	 */
 	public StockDatabaseView() {
 		super("Stock Database");
 		this.setLocationRelativeTo(null);
@@ -51,6 +55,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		setupContent();
 
 		this.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
@@ -157,8 +162,14 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		this.pack();
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 	}
+	
+	/**
+	 * Getters and setters
+	 * 
+	 */
 
 	public JTable getStockList() {
 		return stockList;
@@ -200,16 +211,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		orderList.remove(orderView);
 	}
 
-	public OrderView addButtonListenerToOrderView(ActionListener listener, int id) {
-		for (OrderView container : orderList) {
-			if (container.getOrder().getID() == id) {
-				System.out.println("Added listener to orderID: " + id);
-				container.getButton().addActionListener(listener);
-			}
-		}
 
-		return null;
-	}
 
 
 	public void setStockCode(int code) {
@@ -232,6 +234,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		return parseInt(txtCode.getText());
 	}
 
+	@Override
 	public String getName() {
 		return txtName.getText();
 	}
@@ -284,6 +287,21 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		return parsedFloat;
 	}
 
+	/**
+	 * Add listeners to the view
+	 */
+		
+	public OrderView addButtonListenerToOrderView(ActionListener listener, int id) {
+		for (OrderView container : orderList) {
+			if (container.getOrder().getID() == id) {
+				System.out.println("Added listener to orderID: " + id);
+				container.getButton().addActionListener(listener);
+			}
+		}
+
+		return null;
+	}
+	
 	public void addStockListener(ActionListener listener) {
 		btnSaveButton.addActionListener(listener);
 	}

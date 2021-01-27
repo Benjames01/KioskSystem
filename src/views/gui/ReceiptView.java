@@ -23,6 +23,10 @@ public class ReceiptView extends JPanel {
 		this.useCashGiven = useCashGiven;
 		this.basket = basket;
 	}
+	
+	/*
+	 * Used to setup and define the ReceiptView
+	 */
 
 	public void initialise() {
 

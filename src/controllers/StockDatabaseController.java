@@ -64,6 +64,11 @@ public class StockDatabaseController {
 			view.displayMessage(emptyStockString);
 		}
 	}
+	
+	/*
+	 * Listeners for MVC pattern
+	 *
+	 */
 
 	class StockListener implements ActionListener {
 

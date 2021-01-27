@@ -27,6 +27,10 @@ public class StockView extends JPanel {
 
 	String addButtonString = "Add Basket";
 
+	
+	/*
+	 * Used to setup the StockView with the given stock
+	 */
 	public StockView(Stock stock) {
 		this.setPreferredSize(new Dimension(200, 100));
 		setLayout(null);
@@ -75,6 +79,10 @@ public class StockView extends JPanel {
 	}
 
 
+	/**
+	 * Getters and Setters
+	 */
+	@Override
 	public void setName(String name) {
 		lblName.setText("Name: " + name);
 	}

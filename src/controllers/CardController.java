@@ -17,6 +17,9 @@ public class CardController {
 		this.view = view;
 		this.rView = rView;
 
+		/**
+		 * Adds an action listener to the CardEntryView button to listen for button clicks
+		 */
 		view.addButtonListener(new ActionListener() {
 
 			@Override
@@ -27,6 +30,9 @@ public class CardController {
 
 				Card card = new Card(number, pin);
 
+				/**
+				 * If card is valid, payment was successful and receipt may be shown
+				 */
 				if (CardValidator.validateCardType(card)) {
 					rView.initialise();
 					view.displayMessage("Thank you for paying with: " + card.getCardType());

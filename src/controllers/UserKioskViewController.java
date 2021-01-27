@@ -47,6 +47,10 @@ public class UserKioskViewController {
 		view.addCheckoutCardButtonListener(new CardCheckoutListener());
 		view.addCheckoutCashButtonListener(new CashCheckoutListener());
 	}
+	
+	/*
+	 * Listeners for MVC pattern
+	 */
 
 	class DisplayQuantityListener implements ChangeListener {
 
@@ -58,7 +62,7 @@ public class UserKioskViewController {
 			if (display != null) {
 
 				int quantity = (int) spinner.getValue();
-				float total = (float) quantity * display.getStock().getPrice();
+				float total = quantity * display.getStock().getPrice();
 
 				if (quantity == 0) {
 					display.getButton().setText("Remove");
@@ -119,7 +123,7 @@ public class UserKioskViewController {
 					}
 
 					view.setBasketDisplayList(basket.getBasket());
-					view.getTotalLabel().setText("Total Price: ï¿½" + String.format("%.2f", basket.getTotal()));
+					view.getTotalLabel().setText("Total Price: £" + String.format("%.2f", basket.getTotal()));
 
 				}
 			}
@@ -145,6 +149,7 @@ public class UserKioskViewController {
 
 
 			Thread thread = new Thread() {
+				@Override
 				public void run() {
 					while (!rView.hasBeenCreated()) {
 						try {

@@ -20,6 +20,10 @@ public class OrderDatabase {
 		}
 	}
 
+	/*
+	 * Used to interact with the database for CRUD operations
+	 */
+	
 	public ArrayList<Order> getOrders() {
 		return dao.getAllOrders();
 	}

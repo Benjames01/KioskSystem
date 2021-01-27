@@ -14,6 +14,10 @@ public class Credentials {
 		this.password = password;
 	}
 
+	/*
+	 * Getters and setters
+	 */
+
 	public String getPassword() {
 		return password;
 	}

@@ -19,6 +19,11 @@ public class JTextFieldLimited extends PlainDocument {
 		this.charLimit = limit;
 	}
 
+	
+	/**
+	 * Used to limit the number of characters that can be entered in the document
+	 */
+	@Override
 	public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
 		if (str == null)
 			return;

@@ -34,6 +34,10 @@ public class Receipt {
 	}
 
 
+	/*
+	 * Getters
+	 */
+
 	public float getChange(float cashGiven) {
 		return cashGiven - basket.getTotal();
 	}

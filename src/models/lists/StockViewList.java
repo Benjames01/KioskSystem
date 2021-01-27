@@ -22,6 +22,10 @@ public class StockViewList {
 			e.printStackTrace();
 		}
 	}
+	
+	/*
+	 * Getters and Setters
+	 */
 
 	public ArrayList<StockView> getStock() {
 		return stock;

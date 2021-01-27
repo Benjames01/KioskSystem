@@ -14,6 +14,9 @@ public class Card {
 
 	}
 
+	/*
+	 * Getters and setters
+	 */
 	public String getCardNumber() {
 		return cardNumber;
 	}

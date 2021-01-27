@@ -20,8 +20,12 @@ public class LoginController {
 	public boolean checkCredentials(Credentials user) {
 		return user.getUsername().equalsIgnoreCase("admin") && user.getPassword().equals("admin");
 	}
-
+	
+	/*
+	 * Listener for MVC pattern
+	 */
 	class LoginListener implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
 				model = view.getUser();

@@ -19,6 +19,10 @@ public class StaffLoginView extends JFrame implements ActionListener {
 	JButton btnLogin;
 	Credentials employee;
 
+	
+	/**
+	 * Setup and creates the StaffLoginView
+	 */
 	public StaffLoginView() {
 		super("use username & password: admin");
 		this.setLocationRelativeTo(null);
@@ -42,24 +46,39 @@ public class StaffLoginView extends JFrame implements ActionListener {
 		this.pack();
 
 		this.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 	}
-
+	
+	
+	/**
+	 * returns a new Credentials model from the view
+	 * @return
+	 */
 	public Credentials getUser() {
 		employee = new Credentials(txtUsername.getText(), new String(txtPassword.getPassword()));
 		return employee;
 	}
 
+	
+	/**
+	 * Displays the given String msg to the user
+	 */
 	public void showMessage(String msg) {
 		JOptionPane.showMessageDialog(this, msg);
 	}
 
+	/**
+	 * Used to add the given ActionListener log to the btnLogin
+	 * @param log
+	 */
 	public void addLoginListener(ActionListener log) {
 		btnLogin.addActionListener(log);
 	}

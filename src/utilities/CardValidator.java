@@ -13,7 +13,13 @@ public class CardValidator {
 
 	private CardValidator() {
 	}
-
+	
+	
+	/**
+	 * Used to determine if the given card is a valid visa or mastercard
+	 * @param card
+	 * @return
+	 */
 	static public boolean validateCardType(Card card) {
 		String cardNumber = card.getCardNumber();
 

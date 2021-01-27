@@ -35,6 +35,11 @@ public class StockDatabase extends AbstractTableModel {
 		}
 	}
 
+	
+	/*
+	 * Used to interact with the database for CRUD operations
+	 */
+	
 	public void updateStockFromBasket(ShoppingBasket basket) {
 		for (BasketView bView : basket.getBasket()) {
 			Stock stock = getStockFromCode(bView.getStock().getCode());
@@ -99,6 +104,11 @@ public class StockDatabase extends AbstractTableModel {
 
 		return emptyStock;
 	}
+	
+	
+	/*
+	 * Used to display stock the the JTable view
+	 */
 
 	@Override
 	public Class<?> getColumnClass(int col) {

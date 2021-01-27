@@ -17,6 +17,10 @@ public class BasketView extends JPanel {
 	Stock stock;
 	private JSeparator separator;
 
+	
+	/*
+	 * Used to setup the BasketView with the given stock
+	 */
 	public BasketView(Stock stock) {
 		this.stock = stock;
 		this.setPreferredSize(new Dimension(400, 40));
@@ -26,11 +30,11 @@ public class BasketView extends JPanel {
 		lblName.setBounds(10, 11, 162, 14);
 		add(lblName);
 
-		lblQuantity = new JLabel("ï¿½" + String.format("%.2f", stock.getPrice()) + " * " + stock.getQuantity());
+		lblQuantity = new JLabel("£" + String.format("%.2f", stock.getPrice()) + " * " + stock.getQuantity());
 		lblQuantity.setBounds(234, 11, 73, 14);
 		add(lblQuantity);
 
-		lblTotal = new JLabel("= ï¿½" + String.format("%.2f", (stock.getPrice() * stock.getQuantity())));
+		lblTotal = new JLabel("= £" + String.format("%.2f", (stock.getPrice() * stock.getQuantity())));
 		lblTotal.setBounds(317, 11, 73, 14);
 		add(lblTotal);
 
@@ -39,6 +43,10 @@ public class BasketView extends JPanel {
 		add(separator);
 	}
 
+	
+	/**
+	 * Getters and setters
+	 */
 	public JLabel getLblName() {
 		return lblName;
 	}

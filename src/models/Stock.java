@@ -25,6 +25,11 @@ public class Stock {
 		this.name = name;
 		this.price = price;
 	}
+	
+
+	/*
+	 * Getters and setters
+	 */
 
 	public int getCode() {
 		return code;
@@ -58,6 +63,7 @@ public class Stock {
 		this.quantity = quantity;
 	}
 
+	@Override
 	public String toString() {
 		return "code:[" + code + "] " + name;
 

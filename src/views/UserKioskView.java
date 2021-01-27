@@ -37,7 +37,10 @@ public class UserKioskView extends JFrame implements ActionListener {
 	JButton btnCheckoutCard;
 
 	JLabel lblTotalPrice;
-
+	
+	/**
+	 * Defines and setups the UserKioskView
+	 */
 	public UserKioskView() {
 		super("Kiosk - User View");
 		this.setLocationRelativeTo(null);
@@ -101,12 +104,17 @@ public class UserKioskView extends JFrame implements ActionListener {
 		panel.add(btnCheckoutCard);
 
 		this.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
 	}
 
+	
+	/*
+	 * Getters and setters
+	 */
 	public JLabel getTotalLabel() {
 		return lblTotalPrice;
 	}
@@ -157,6 +165,38 @@ public class UserKioskView extends JFrame implements ActionListener {
 		this.pack();
 
 	}
+	
+	public StockView getStockDisplayFromButton(JButton button) {
+		for (StockView container : stockList.getStock()) {
+			if (container.getButton() == button) {
+				return container;
+			}
+		}
+
+		return null;
+	}
+
+	public StockView getStockDisplayFromSpinner(JSpinner spinner) {
+		for (StockView container : stockList.getStock()) {
+			if (container.getQuantity() == spinner) {
+				return container;
+			}
+		}
+
+		return null;
+	}
+
+	public void setReceiptPosition(ReceiptView rView) {
+		JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(rView);
+
+		topFrame.setLocationRelativeTo(null);
+	}
+	
+	
+	/**
+	 * Used to restart the view with updated data
+	 * @param rView
+	 */
 
 	public void restart(ReceiptView rView) {
 		UserKioskView userView = new UserKioskView();
@@ -174,6 +214,10 @@ public class UserKioskView extends JFrame implements ActionListener {
 
 	}
 
+	
+	/**
+	 * Add listeners to the view
+	 */
 	public void addQuantityListener(ChangeListener listener) {
 		for (StockView container : stockList.getStock()) {
 
@@ -204,31 +248,7 @@ public class UserKioskView extends JFrame implements ActionListener {
 		btnAdminLogin.addActionListener(listener);
 	}
 
-	public StockView getStockDisplayFromButton(JButton button) {
-		for (StockView container : stockList.getStock()) {
-			if (container.getButton() == button) {
-				return container;
-			}
-		}
 
-		return null;
-	}
-
-	public StockView getStockDisplayFromSpinner(JSpinner spinner) {
-		for (StockView container : stockList.getStock()) {
-			if (container.getQuantity() == spinner) {
-				return container;
-			}
-		}
-
-		return null;
-	}
-
-	public void setReceiptPosition(ReceiptView rView) {
-		JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(rView);
-
-		topFrame.setLocationRelativeTo(null);
-	}
 
 
 }
