@@ -104,7 +104,6 @@ public class OrderDAO extends DAO {
 			if(sql != null) {
 				try {					
 					sql.close();
-					System.out.println("Ended getAllOrders() db connection.");
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

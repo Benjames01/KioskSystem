@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import models.Stock;
+import views.StockDisplayContainer;
 
 public class StockDAO extends DAO {
 
@@ -181,7 +182,6 @@ public class StockDAO extends DAO {
 			if(sql != null) {
 				try {					
 					sql.close();
-					System.out.println("Ended getAllStock() db connection.");
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -190,6 +190,19 @@ public class StockDAO extends DAO {
 		}		
 
 		return allStock;
+	}
+	
+	
+	public ArrayList<StockDisplayContainer> getStockDisplayContainers(ArrayList<Stock> stockList) {
+		ArrayList<StockDisplayContainer> stockDisplayList = new ArrayList<>();
+		
+		for(Stock stock : stockList) {
+			StockDisplayContainer temp = new StockDisplayContainer(stock);
+			
+			stockDisplayList.add(temp);
+		}
+		
+		return stockDisplayList;
 	}
 
 

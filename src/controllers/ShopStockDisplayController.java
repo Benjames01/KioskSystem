@@ -30,7 +30,7 @@ public class ShopStockDisplayController {
 			this.view = view;
 			StockDAO stockDB = new StockDAO();
 			
-			models = getStockDisplayContainers(stockDB.getAllStock());
+			models = stockDB.getStockDisplayContainers(stockDB.getAllStock());
 			
 			view.setStockDisplayList(models);
 			
@@ -45,20 +45,6 @@ public class ShopStockDisplayController {
 			e.printStackTrace();
 		}
 	}
-
-	
-	public ArrayList<StockDisplayContainer> getStockDisplayContainers(ArrayList<Stock> stockList) {
-		ArrayList<StockDisplayContainer> stockDisplayList = new ArrayList<>();
-		
-		for(Stock stock : stockList) {
-			StockDisplayContainer temp = new StockDisplayContainer(stock);
-			
-			stockDisplayList.add(temp);
-		}
-		
-		return stockDisplayList;
-	}
-	
 	
 	class DisplayQuantityListener implements ChangeListener{
 

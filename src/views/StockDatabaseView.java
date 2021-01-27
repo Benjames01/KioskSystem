@@ -54,6 +54,9 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 	JScrollPane scrollOrderPane;
 	JPanel orderPanel;
 	
+	
+	JPanel orderContainer;
+	
 	Stock editStock = new Stock();
 
 	public StockDatabaseView(){
@@ -143,16 +146,13 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		orderPanel = new JPanel();
 		orderPanel.setBounds(0, 81, 494, 154);
 		editPanel.add(orderPanel);
-		orderPanel.setLayout(new BoxLayout(orderPanel, BoxLayout.Y_AXIS));
+		orderPanel.setLayout(new BorderLayout(0, 0));
 
 
 		JPanel panel = new JPanel();
 		orderPanel.add(panel, BorderLayout.SOUTH);
 		orderPanel.setPreferredSize(new Dimension(400, 720));
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
-		JButton btnNewButton_1 = new JButton("Accept Order");
-		panel.add(btnNewButton_1);
 
 		btnSwitchToKiosk = new JButton("Switch to Kiosk View");
 		panel.add(btnSwitchToKiosk);
@@ -179,28 +179,50 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		return stockList;
 	}
 	
+	
+
+	
 	public void setOrderList(ArrayList<OrderView> orderList) {	
 		this.orderList = orderList;
 		
-	    JPanel orderContainer = new JPanel();
-	    orderContainer.setLayout(new GridLayout(100, 1, 0, 10));
-	    	
+		if(scrollOrderPane != null) {
+			orderPanel.remove(scrollOrderPane);
+		}
+		
+
+		orderContainer = new JPanel();
+		orderContainer.setLayout(new GridLayout(100, 1, 0, 10));
+
 		for (OrderView display : orderList) {	
 			orderContainer.add(display);
 			display.setVisible(true);
 		}
-	
+
 		scrollOrderPane = new JScrollPane(orderContainer);
-	    orderPanel.add(scrollOrderPane);
-	   
+		orderPanel.add(scrollOrderPane);
 		
 		this.pack();
 	}
-	
+
 	public OrderView getOrderViewFromButton(JButton button) {
 		for(OrderView container : orderList) {
 			if(container.getButton() == button) {
 				return container;
+			}
+		}
+		
+		return null;
+	}
+	
+	public void removeOrderView(OrderView orderView) {
+		orderList.remove(orderView);
+	}
+	
+	public OrderView addButtonListenerToOrderView(ActionListener listener, int id) {
+		for(OrderView container : orderList) {
+			if(container.getOrder().getID() == id) {
+				System.out.println("Added listener to orderID: " + id );
+				container.getButton().addActionListener(listener);
 			}
 		}
 		
@@ -313,5 +335,11 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 
 	public int getConfirmation(String msg) {	
 		return JOptionPane.showConfirmDialog(this, msg);
+	}
+	
+	public void addOrderButtonListener(ActionListener listener) {
+		for(OrderView container: orderList) {
+			container.getButton().addActionListener(listener);
+		}
 	}
 }
