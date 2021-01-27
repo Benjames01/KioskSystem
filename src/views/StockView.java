@@ -17,7 +17,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.text.DefaultFormatter;
 import javax.swing.JSeparator;
 
-public class StockDisplayContainer extends JPanel {
+public class StockView extends JPanel {
 
 	static final long serialVersionUID = 4732565248494723792L;
 
@@ -35,8 +35,10 @@ public class StockDisplayContainer extends JPanel {
 	JSpinner sliderQuantity;
 
 	Stock stock;
+	
+	String addButtonString = "Add Basket";
 
-	public StockDisplayContainer(Stock stock) {		
+	public StockView(Stock stock) {		
 		this.setPreferredSize(new Dimension(200,100));
 		setLayout(null);
 
@@ -56,7 +58,7 @@ public class StockDisplayContainer extends JPanel {
 		lblNewLabel.setBounds(10, 63, 66, 14);
 		add(lblNewLabel);
 
-		btnAddButton = new JButton("Add Basket");
+		btnAddButton = new JButton(addButtonString);
 		btnAddButton.setBounds(267, 59, 123, 23);
 
 		btnAddButton.setActionCommand("passStock");
@@ -93,7 +95,7 @@ public class StockDisplayContainer extends JPanel {
 	}
 
 	public void setPrice(float price) {
-		lblPrice.setText("Price: " + price);
+		lblPrice.setText("Price: £" + String.format("%.2f",price));
 	}
 
 	public void setSliderMax(int max) {
@@ -119,7 +121,7 @@ public class StockDisplayContainer extends JPanel {
 	}
 
 	public void setTotal(float total) {
-		lblTotal.setText("Total: " + total);
+		lblTotal.setText("Total: £" + String.format("%.2f",total));
 	}
 
 	public void setQuantity(int quantity) {

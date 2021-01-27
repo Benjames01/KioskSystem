@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import models.Stock;
-import views.StockDisplayContainer;
+import views.StockView;
 
 public class StockDAO extends DAO {
 
@@ -193,11 +193,11 @@ public class StockDAO extends DAO {
 	}
 	
 	
-	public ArrayList<StockDisplayContainer> getStockDisplayContainers(ArrayList<Stock> stockList) {
-		ArrayList<StockDisplayContainer> stockDisplayList = new ArrayList<>();
+	public ArrayList<StockView> getStockDisplayContainers(ArrayList<Stock> stockList) {
+		ArrayList<StockView> stockDisplayList = new ArrayList<>();
 		
 		for(Stock stock : stockList) {
-			StockDisplayContainer temp = new StockDisplayContainer(stock);
+			StockView temp = new StockView(stock);
 			
 			stockDisplayList.add(temp);
 		}

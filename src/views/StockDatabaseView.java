@@ -140,7 +140,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		editPanel.add(btnNewButton);
 
 		JLabel lblNewLabel_4 = new JLabel("Right click item to edit/delete/order.");
-		lblNewLabel_4.setBounds(10, 40, 180, 14);
+		lblNewLabel_4.setBounds(10, 40, 268, 14);
 		editPanel.add(lblNewLabel_4);
 
 		orderPanel = new JPanel();

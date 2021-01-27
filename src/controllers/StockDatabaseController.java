@@ -20,7 +20,7 @@ import models.Stock;
 import models.StockDatabase;
 import views.OrderView;
 import views.StockDatabaseView;
-import views.StockDisplayContainer;
+import views.StockView;
 import views.UserKioskView;
 
 public class StockDatabaseController {
@@ -130,9 +130,7 @@ public class StockDatabaseController {
 				
 				Order order = display.getOrder();
 				Stock stock = model.getStockFromCode(order.getCode());
-				
-				System.out.println("Clicked Order with ID: " + order.getID());
-				
+						
 				stock.setQuantity(order.getQuantity() + stock.getQuantity());
 				
 				model.addStock(stock);
@@ -186,7 +184,7 @@ public class StockDatabaseController {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			UserKioskView userView = new UserKioskView();
-			ShopStockDisplayController controller2 = new ShopStockDisplayController(userView);
+			UserKioskViewController controller2 = new UserKioskViewController(userView);
 
 			userView.setVisible(true);
 			view.dispose();

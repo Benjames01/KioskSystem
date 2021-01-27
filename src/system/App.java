@@ -1,6 +1,6 @@
 package system;
 
-import controllers.ShopStockDisplayController;
+import controllers.UserKioskViewController;
 import controllers.StockDatabaseController;
 import views.StockDatabaseView;
 import views.UserKioskView;
@@ -13,7 +13,7 @@ public class App {
 
 
 		UserKioskView userView = new UserKioskView();
-		ShopStockDisplayController shopController = new ShopStockDisplayController(userView);
+		UserKioskViewController shopController = new UserKioskViewController(userView);
 
 		userView.setVisible(true);
 
