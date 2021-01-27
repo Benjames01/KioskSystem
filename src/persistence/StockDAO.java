@@ -1,37 +1,34 @@
 package persistence;
 
-import java.sql.Connection;
+import models.Stock;
+import views.gui.StockView;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import models.ShoppingBasket;
-import models.Stock;
-import views.BasketView;
-import views.StockView;
-
 public class StockDAO extends DAO {
 
 	boolean hasData = false;
 	boolean useDB = false;
 
-	public StockDAO() throws SQLException, ClassNotFoundException  {
-		super();		
-		initialise();	
+	public StockDAO() throws SQLException, ClassNotFoundException {
+		super();
+		initialise();
 	}
 
 	void initialise() throws SQLException {
 
-		if(!hasData) {
+		if (!hasData) {
 			hasData = true;
 
 			Statement sql = getConnection().createStatement();
 			ResultSet results = sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='stock'");
 
 
-			if(!results.next()) {
+			if (!results.next()) {
 				// Create the stock table
 				System.out.println("Building table with data");
 				Statement sql2 = getConnection().createStatement();
@@ -58,28 +55,28 @@ public class StockDAO extends DAO {
 
 				preparedStatement.setString(1, "salt");
 				preparedStatement.setFloat(2, 0.80f);
-				preparedStatement.setInt(3, 10);		
+				preparedStatement.setInt(3, 10);
 				preparedStatement.executeUpdate();
 
 				preparedStatement.setString(1, "ham sandwich");
 				preparedStatement.setFloat(2, 2.60f);
-				preparedStatement.setInt(3, 1);		
+				preparedStatement.setInt(3, 1);
 				preparedStatement.executeUpdate();
 
 				preparedStatement.setString(1, "eggs");
 				preparedStatement.setFloat(2, 1.12f);
-				preparedStatement.setInt(3, 5);		
+				preparedStatement.setInt(3, 5);
 				preparedStatement.executeUpdate();
 
 				preparedStatement.setString(1, "chicken");
 				preparedStatement.setFloat(2, 3.80f);
-				preparedStatement.setInt(3, 5);		
+				preparedStatement.setInt(3, 5);
 				preparedStatement.executeUpdate();
 
 				preparedStatement.close();
 
 				sql2.close();
-				System.out.println("Stock table has been populated with data.");	
+				System.out.println("Stock table has been populated with data.");
 
 			} else {
 				System.out.println("Table already exists");
@@ -90,7 +87,7 @@ public class StockDAO extends DAO {
 			results = sql.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='orders'");
 
 
-			if(!results.next()) {
+			if (!results.next()) {
 				// Create the stock table
 				System.out.println("Building order table");
 
@@ -125,7 +122,7 @@ public class StockDAO extends DAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if(addSQL != null) {
+			if (addSQL != null) {
 				try {
 					addSQL.close();
 				} catch (SQLException e) {
@@ -144,14 +141,14 @@ public class StockDAO extends DAO {
 
 			removeSQL.setInt(1, stock.getCode());
 			removeSQL.executeUpdate();
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(removeSQL != null) {
+				if (removeSQL != null) {
 					removeSQL.close();
 				}
-			} catch(SQLException e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
@@ -169,7 +166,7 @@ public class StockDAO extends DAO {
 			sql = getConnection().createStatement();
 			ResultSet results = sql.executeQuery("SELECT code, name, price, quantity FROM stock WHERE 1=1;");
 
-			while(results.next()) {
+			while (results.next()) {
 
 				Stock stock = new Stock(results.getInt("code"), results.getString("name"),
 						results.getFloat("price"), results.getInt("quantity"));
@@ -181,27 +178,24 @@ public class StockDAO extends DAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if(sql != null) {
-				try {					
+			if (sql != null) {
+				try {
 					sql.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
 
-		}		
+		}
 
 		return allStock;
 	}
-	
-	
-
 
 
 	public ArrayList<StockView> getStockDisplayContainers(ArrayList<Stock> stockList) {
 		ArrayList<StockView> stockDisplayList = new ArrayList<>();
 
-		for(Stock stock : stockList) {
+		for (Stock stock : stockList) {
 			StockView temp = new StockView(stock);
 
 			stockDisplayList.add(temp);
@@ -211,14 +205,14 @@ public class StockDAO extends DAO {
 	}
 
 
-	public ArrayList<Stock> getEmptyStock() throws SQLException{
+	public ArrayList<Stock> getEmptyStock() throws SQLException {
 		ArrayList<Stock> emptyStock = new ArrayList<Stock>();
 
 		Statement sql = getConnection().createStatement();
 		ResultSet results = sql.executeQuery("SELECT code, name, price, quantity FROM stock WHERE quantity<=0;");
 
 
-		while(results.next()) {
+		while (results.next()) {
 
 			Stock stock = new Stock(results.getInt("code"), results.getString("name"),
 					results.getFloat("price"), results.getInt("quantity"));

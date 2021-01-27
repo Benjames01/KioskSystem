@@ -1,8 +1,6 @@
 package system;
 
 import controllers.UserKioskViewController;
-import controllers.StockDatabaseController;
-import views.StockDatabaseView;
 import views.UserKioskView;
 
 public class App {

@@ -1,12 +1,9 @@
-package views;
-
-import java.awt.Dimension;
-
-import javax.swing.JPanel;
+package views.gui;
 
 import models.Stock;
-import javax.swing.JLabel;
-import javax.swing.JSeparator;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class BasketView extends JPanel {
 
@@ -22,18 +19,18 @@ public class BasketView extends JPanel {
 
 	public BasketView(Stock stock) {
 		this.stock = stock;
-		this.setPreferredSize(new Dimension(400,40));
+		this.setPreferredSize(new Dimension(400, 40));
 		setLayout(null);
 
 		lblName = new JLabel("Name: " + stock.getName());
 		lblName.setBounds(10, 11, 162, 14);
 		add(lblName);
 
-		lblQuantity = new JLabel("£" + String.format("%.2f",stock.getPrice()) + " * " + stock.getQuantity());
+		lblQuantity = new JLabel("ï¿½" + String.format("%.2f", stock.getPrice()) + " * " + stock.getQuantity());
 		lblQuantity.setBounds(234, 11, 73, 14);
 		add(lblQuantity);
 
-		lblTotal = new JLabel("= £" +  String.format("%.2f", (stock.getPrice() * stock.getQuantity())));
+		lblTotal = new JLabel("= ï¿½" + String.format("%.2f", (stock.getPrice() * stock.getQuantity())));
 		lblTotal.setBounds(317, 11, 73, 14);
 		add(lblTotal);
 
@@ -61,10 +58,6 @@ public class BasketView extends JPanel {
 	public void setStock(Stock stock) {
 		this.stock = stock;
 	}
-
-
-
-
 
 
 }

@@ -1,8 +1,8 @@
-package models;
+package models.lists;
 
 import java.util.ArrayList;
 
-import views.BasketView;
+import views.gui.BasketView;
 
 public class ShoppingBasket {
 
@@ -16,20 +16,20 @@ public class ShoppingBasket {
 	public ShoppingBasket(ShoppingBasket basket) {
 		this.basket = basket.getBasket();
 	}
-	
-	
-	public ArrayList<BasketView> getBasket(){
+
+
+	public ArrayList<BasketView> getBasket() {
 		return basket;
 	}
 
 	public float getTotal() {
 		float total = 0.00f;
 
-		for(BasketView bView : basket) {
+		for (BasketView bView : basket) {
 			total += bView.getStock().getQuantity() * bView.getStock().getPrice();
 		}
 
 		return total;
 	}
-	
+
 }

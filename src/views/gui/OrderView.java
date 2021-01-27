@@ -1,15 +1,9 @@
-package views;
-
-import javax.swing.JPanel;
+package views.gui;
 
 import models.Order;
-import models.Stock;
-import javax.swing.JLabel;
 
-import java.awt.Dimension;
-
-import javax.swing.JButton;
-import javax.swing.JSeparator;
+import javax.swing.*;
+import java.awt.*;
 
 public class OrderView extends JPanel {
 
@@ -26,7 +20,7 @@ public class OrderView extends JPanel {
 
 	public OrderView(Order order) {
 
-		this.setPreferredSize(new Dimension(400,45));
+		this.setPreferredSize(new Dimension(400, 45));
 		this.order = order;
 
 		setLayout(null);
@@ -45,7 +39,7 @@ public class OrderView extends JPanel {
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 43, 450, 2);
-		add(separator);	
+		add(separator);
 
 		lblOrderID = new JLabel("Order ID: " + order.getID());
 		lblOrderID.setBounds(10, 7, 114, 14);
@@ -67,8 +61,6 @@ public class OrderView extends JPanel {
 	public Order getOrder() {
 		return order;
 	}
-
-
 
 
 }

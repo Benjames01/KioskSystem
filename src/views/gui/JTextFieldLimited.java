@@ -1,4 +1,4 @@
-package views;
+package views.gui;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -9,12 +9,12 @@ public class JTextFieldLimited extends PlainDocument {
 	private static final long serialVersionUID = -5189034767958830144L;
 	private int charLimit;
 
-	JTextFieldLimited(int limit){
+	public JTextFieldLimited(int limit) {
 		super();
 		this.charLimit = limit;
 	}
 
-	JTextFieldLimited(int limit, boolean upper){
+	public JTextFieldLimited(int limit, boolean upper) {
 		super();
 		this.charLimit = limit;
 	}

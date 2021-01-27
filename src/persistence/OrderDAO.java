@@ -1,13 +1,12 @@
 package persistence;
 
+import models.Order;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import models.Order;
-import models.Stock;
 
 public class OrderDAO extends DAO {
 
@@ -33,22 +32,22 @@ public class OrderDAO extends DAO {
 
 			int rows = addSQL.executeUpdate();
 
-			if(rows == 0 ) {
+			if (rows == 0) {
 				System.out.println("Failed to insert order into database");
 			}
 
-			try (ResultSet generatedID = addSQL.getGeneratedKeys()){
-				if(generatedID.next()) {
+			try (ResultSet generatedID = addSQL.getGeneratedKeys()) {
+				if (generatedID.next()) {
 					order.setID(generatedID.getInt(1));
 					System.out.println("Order created with id: " + order.getID());
 				} else {
 					System.out.println("Failed to create order.");
 				}
-			} 	
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if(addSQL != null) {
+			if (addSQL != null) {
 				try {
 					addSQL.close();
 				} catch (SQLException e) {
@@ -66,21 +65,21 @@ public class OrderDAO extends DAO {
 
 			removeSQL.setInt(1, id);
 			removeSQL.executeUpdate();
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(removeSQL != null) {
+				if (removeSQL != null) {
 					removeSQL.close();
 				}
-			} catch(SQLException e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
 	public ArrayList<Order> getAllOrders() {
-		ArrayList<Order> allOrders= new ArrayList<Order>();
+		ArrayList<Order> allOrders = new ArrayList<Order>();
 
 		Statement sql = null;
 
@@ -89,7 +88,7 @@ public class OrderDAO extends DAO {
 			sql = getConnection().createStatement();
 			ResultSet results = sql.executeQuery("SELECT id, code, name, quantity FROM orders WHERE 1=1;");
 
-			while(results.next()) {
+			while (results.next()) {
 
 				Order order = new Order(results.getInt("id"), results.getInt("code"), results.getString("name"),
 						0, results.getInt("quantity"));
@@ -101,15 +100,15 @@ public class OrderDAO extends DAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if(sql != null) {
-				try {					
+			if (sql != null) {
+				try {
 					sql.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
 
-		}		
+		}
 
 		return allOrders;
 	}

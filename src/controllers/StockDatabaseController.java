@@ -1,27 +1,21 @@
 package controllers;
 
-import java.awt.Point;
+import models.Order;
+import models.Stock;
+import models.persistence.OrderDatabase;
+import models.persistence.StockDatabase;
+import views.StockDatabaseView;
+import views.UserKioskView;
+import views.gui.OrderView;
+
+import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingUtilities;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
-
-import models.Order;
-import models.OrderDatabase;
-import models.Stock;
-import models.StockDatabase;
-import views.OrderView;
-import views.StockDatabaseView;
-import views.StockView;
-import views.UserKioskView;
 
 public class StockDatabaseController {
 
@@ -33,7 +27,7 @@ public class StockDatabaseController {
 	public StockDatabaseController(StockDatabaseView view) {
 		this.view = view;
 		view.setLocationRelativeTo(null);
-		
+
 		try {
 			model = new StockDatabase(true);
 			orderDB = new OrderDatabase();
@@ -63,15 +57,15 @@ public class StockDatabaseController {
 		if (!emptyStockList.isEmpty()) {
 			String emptyStockString = "The following stock needs replenishing: \n\n";
 
-			for(Stock stock : emptyStockList) {
+			for (Stock stock : emptyStockList) {
 				emptyStockString += stock.toString() + "\n";
 			}
 
 			view.displayMessage(emptyStockString);
-		}		
+		}
 	}
 
-	class StockListener implements ActionListener{
+	class StockListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -83,18 +77,18 @@ public class StockDatabaseController {
 		}
 	}
 
-	class NewBtnListener implements ActionListener{
+	class NewBtnListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Stock stock = new Stock();
-			view.displayStock(stock);			
+			view.displayStock(stock);
 		}
 	}
 
-	class EditListener implements ActionListener{
+	class EditListener implements ActionListener {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {		
+		public void actionPerformed(ActionEvent e) {
 			int index = view.getSelectedStockIndex();
 			if (index > -1) {
 				view.displayStock(model.getStockAt(index));
@@ -103,23 +97,23 @@ public class StockDatabaseController {
 		}
 	}
 
-	class DeleteListener implements ActionListener{
+	class DeleteListener implements ActionListener {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {		
+		public void actionPerformed(ActionEvent e) {
 			int index = view.getSelectedStockIndex();
 			if (index > -1 && view.getConfirmation("Are you sure you want to delete?") == 0) {
-					model.removeStockAt(index);
-					view.displayMessage("Deleted Successfully!");	
-					model.fireTableDataChanged();				
-			}		
+				model.removeStockAt(index);
+				view.displayMessage("Deleted Successfully!");
+				model.fireTableDataChanged();
+			}
 		}
 	}
 
-	class OrderButtonListener implements ActionListener{
+	class OrderButtonListener implements ActionListener {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {		
+		public void actionPerformed(ActionEvent e) {
 
 			JButton pressedButton = (JButton) e.getSource();
 			OrderView display = view.getOrderViewFromButton(pressedButton);
@@ -143,10 +137,10 @@ public class StockDatabaseController {
 		}
 	}
 
-	class OrderListener implements ActionListener{
+	class OrderListener implements ActionListener {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {		
+		public void actionPerformed(ActionEvent e) {
 			int index = view.getSelectedStockIndex();
 			if (index > -1) {
 
@@ -159,18 +153,18 @@ public class StockDatabaseController {
 						JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
 				if (optionChosen == JOptionPane.OK_OPTION) {
-					Order order = new Order(stock.getCode(), stock.getName(), stock.getPrice(), (int)spinner.getValue());
+					Order order = new Order(stock.getCode(), stock.getName(), stock.getPrice(), (int) spinner.getValue());
 					orderDB.addOrder(order);
 
 					ArrayList<Order> orders = orderDB.getOrders();
 
 					ArrayList<OrderView> orderViews = orderDB.getOrderViews(orders);
 
-					view.setOrderList(orderViews);	
+					view.setOrderList(orderViews);
 					view.addOrderButtonListener(new OrderButtonListener());
 				}
 
-			}		
+			}
 		}
 	}
 
@@ -189,7 +183,6 @@ public class StockDatabaseController {
 	}
 
 
-
 	class PopupListener implements PopupMenuListener {
 
 		@Override
@@ -198,13 +191,12 @@ public class StockDatabaseController {
 		}
 
 		@Override
-		public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {		
+		public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
 		}
 
 
 		/**
 		 * Select the row where the user right clicks on the table
-		 * 
 		 */
 		@Override
 		public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
@@ -213,8 +205,8 @@ public class StockDatabaseController {
 				@Override
 				public void run() {
 					int rowAtSelect = view.getStockList()
-							.rowAtPoint(SwingUtilities.convertPoint(view.getPopup(), new Point(0,0), view.getStockList()));
-					if(rowAtSelect > -1 ) {
+							.rowAtPoint(SwingUtilities.convertPoint(view.getPopup(), new Point(0, 0), view.getStockList()));
+					if (rowAtSelect > -1) {
 						view.getStockList().setRowSelectionInterval(rowAtSelect, rowAtSelect);
 					}
 
@@ -222,7 +214,7 @@ public class StockDatabaseController {
 
 			});
 
-		}		
+		}
 	}
 
 }

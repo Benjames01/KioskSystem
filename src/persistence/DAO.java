@@ -1,5 +1,6 @@
 package persistence;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,8 +8,6 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import javax.swing.JFileChooser;
 
 public class DAO {
 
@@ -23,10 +22,10 @@ public class DAO {
 	}
 
 	private static void setupConnection() {
-		if(connection == null) {		
+		if (connection == null) {
 			databasePath = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
 
-			databasePath =  databasePath + File.separatorChar + "KioskSystem";
+			databasePath = databasePath + File.separatorChar + "KioskSystem";
 
 			try {
 				Files.createDirectories(Paths.get(databasePath));
@@ -40,17 +39,17 @@ public class DAO {
 				Class.forName(databaseDriver);
 				connection = DriverManager.getConnection(databaseURL);
 
-			} catch (IOException  | ClassNotFoundException  | SQLException e) {
+			} catch (IOException | ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
-			} 			
+			}
 		}
 	}
 
 	public Connection getConnection() {
 		try {
-			if( connection != null && !connection.isClosed()) {
+			if (connection != null && !connection.isClosed()) {
 				return connection;
-			}	else {
+			} else {
 				return connection = DriverManager.getConnection(databaseURL);
 			}
 		} catch (SQLException e) {

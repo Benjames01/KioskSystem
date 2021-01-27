@@ -2,16 +2,16 @@ package models;
 
 public class Card {
 
-	
+
 	String cardNumber;
 	String cardType = "null";
 	String pin;
-	
+
 	public Card(String cardNumber, String pin) {
 		cardNumber.replaceAll("-", "");
 		this.cardNumber = cardNumber;
 		this.pin = pin;
-		
+
 	}
 
 	public String getCardNumber() {
@@ -37,5 +37,5 @@ public class Card {
 	public void setCardType(String cardType) {
 		this.cardType = cardType;
 	}
-	
+
 }

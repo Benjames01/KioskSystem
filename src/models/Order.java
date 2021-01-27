@@ -1,6 +1,6 @@
 package models;
 
-public class Order extends Stock{ 
+public class Order extends Stock {
 
 	int id;
 

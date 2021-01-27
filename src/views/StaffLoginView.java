@@ -1,20 +1,13 @@
 package views;
 
-import java.awt.FlowLayout;
+import models.Credentials;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
-import models.Credentials;
 
 public class StaffLoginView extends JFrame implements ActionListener {
 
@@ -26,7 +19,7 @@ public class StaffLoginView extends JFrame implements ActionListener {
 	JButton btnLogin;
 	Credentials employee;
 
-	public StaffLoginView(){
+	public StaffLoginView() {
 		super("use username & password: admin");
 		this.setLocationRelativeTo(null);
 
@@ -48,21 +41,22 @@ public class StaffLoginView extends JFrame implements ActionListener {
 		this.setContentPane(content);
 		this.pack();
 
-		this.addWindowListener(new WindowAdapter(){
-			public void windowClosing(WindowEvent e){
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
 	}
+
 	public void actionPerformed(ActionEvent e) {
 	}
 
-	public Credentials getUser(){
+	public Credentials getUser() {
 		employee = new Credentials(txtUsername.getText(), new String(txtPassword.getPassword()));
-		return employee;       
+		return employee;
 	}
 
-	public void showMessage(String msg){
+	public void showMessage(String msg) {
 		JOptionPane.showMessageDialog(this, msg);
 	}
 

@@ -1,27 +1,16 @@
-package views;
-
-import javax.swing.JPanel;
+package views.gui;
 
 import models.Stock;
-import javax.swing.JLabel;
-import javax.swing.JSlider;
 
-import java.awt.Dimension;
-
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.*;
 import javax.swing.text.DefaultFormatter;
-import javax.swing.JSeparator;
+import java.awt.*;
 
 public class StockView extends JPanel {
 
 	static final long serialVersionUID = 4732565248494723792L;
 
-	JLabel lblName; 
+	JLabel lblName;
 	JLabel lblCode;
 
 	JLabel lblPrice;
@@ -38,8 +27,8 @@ public class StockView extends JPanel {
 
 	String addButtonString = "Add Basket";
 
-	public StockView(Stock stock) {		
-		this.setPreferredSize(new Dimension(200,100));
+	public StockView(Stock stock) {
+		this.setPreferredSize(new Dimension(200, 100));
 		setLayout(null);
 
 		lblName = new JLabel("Name: ");
@@ -71,13 +60,13 @@ public class StockView extends JPanel {
 
 		lblQuantityDisplay = new JLabel("Quantity:");
 		lblQuantityDisplay.setBounds(267, 26, 123, 14);
-		add(lblQuantityDisplay);	
+		add(lblQuantityDisplay);
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 93, 400, 7);
 		add(separator);
 
-		setFromStock(stock);	
+		setFromStock(stock);
 		JComponent comp = sliderQuantity.getEditor();
 		JFormattedTextField field = (JFormattedTextField) comp.getComponent(0);
 		DefaultFormatter formatter = (DefaultFormatter) field.getFormatter();
@@ -95,7 +84,7 @@ public class StockView extends JPanel {
 	}
 
 	public void setPrice(float price) {
-		lblPrice.setText("Price: £" + String.format("%.2f",price));
+		lblPrice.setText("Price: £" + String.format("%.2f", price));
 	}
 
 	public void setSliderMax(int max) {
@@ -117,15 +106,10 @@ public class StockView extends JPanel {
 		}
 
 
-
 	}
 
 	public void setTotal(float total) {
-		lblTotal.setText("Total: £" + String.format("%.2f",total));
-	}
-
-	public void setQuantity(int quantity) {
-		lblQuantityDisplay.setText("Quantity: " + quantity);
+		lblTotal.setText("Total: £" + String.format("%.2f", total));
 	}
 
 	public void setFromStock(Stock stock) {
@@ -144,6 +128,10 @@ public class StockView extends JPanel {
 
 	public JSpinner getQuantity() {
 		return sliderQuantity;
+	}
+
+	public void setQuantity(int quantity) {
+		lblQuantityDisplay.setText("Quantity: " + quantity);
 	}
 
 	public JButton getButton() {

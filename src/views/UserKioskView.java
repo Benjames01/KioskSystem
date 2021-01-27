@@ -1,35 +1,21 @@
 package views;
 
-import java.awt.Dimension;
+import controllers.UserKioskViewController;
+import models.lists.StockViewList;
+import views.gui.BasketView;
+import views.gui.ReceiptView;
+import views.gui.StockView;
+
+import javax.swing.*;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.BoxLayout;
-import javax.swing.JScrollPane;
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeListener;
-
-import controllers.UserKioskViewController;
-import models.StockViewList;
-
-import javax.swing.JLabel;
-import javax.swing.JSeparator;
-import javax.swing.JSpinner;
-
-public class UserKioskView extends JFrame implements ActionListener{
+public class UserKioskView extends JFrame implements ActionListener {
 
 
 	static final long serialVersionUID = 5251742558110660647L;
@@ -55,10 +41,10 @@ public class UserKioskView extends JFrame implements ActionListener{
 	public UserKioskView() {
 		super("Kiosk - User View");
 		this.setLocationRelativeTo(null);
-		
+
 		stockList = new StockViewList();
 
-		Dimension prefSize = new Dimension(1080,720);
+		Dimension prefSize = new Dimension(1080, 720);
 		this.setSize(prefSize);
 		this.setPreferredSize(prefSize);
 
@@ -89,7 +75,7 @@ public class UserKioskView extends JFrame implements ActionListener{
 
 		JPanel basketInformationPanel = new JPanel();
 		basketPanel.add(basketInformationPanel, BorderLayout.SOUTH);
-		basketInformationPanel.setPreferredSize(new Dimension(400,50));
+		basketInformationPanel.setPreferredSize(new Dimension(400, 50));
 		basketInformationPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		lblTotalPrice = new JLabel("Total Price: ");
@@ -114,22 +100,22 @@ public class UserKioskView extends JFrame implements ActionListener{
 		btnCheckoutCard = new JButton("Checkout Card");
 		panel.add(btnCheckoutCard);
 
-		this.addWindowListener(new WindowAdapter(){
-			public void windowClosing(WindowEvent e){
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
 	}
 
-	public JLabel getTotalLabel(){
+	public JLabel getTotalLabel() {
 		return lblTotalPrice;
 	}
 
-	public void setBasketDisplayList(ArrayList<BasketView> shoppingBasketList) {	
+	public void setBasketDisplayList(ArrayList<BasketView> shoppingBasketList) {
 		this.shoppingBasketList = shoppingBasketList;
 
 
-		if(shopScrollPane != null) {
+		if (shopScrollPane != null) {
 			basketDisplayPanel.remove(shopScrollPane);
 		}
 
@@ -137,7 +123,7 @@ public class UserKioskView extends JFrame implements ActionListener{
 		basketContainer.setLayout(new GridLayout(100, 1, 0, 10));
 
 
-		for (BasketView display : shoppingBasketList) {	
+		for (BasketView display : shoppingBasketList) {
 			basketContainer.add(display);
 		}
 
@@ -149,35 +135,35 @@ public class UserKioskView extends JFrame implements ActionListener{
 
 	}
 
-	public void setStockDisplayList(ArrayList<StockView> stockDisplayList) {	
+	public void setStockDisplayList(ArrayList<StockView> stockDisplayList) {
 		stockList.setStock(stockDisplayList);
-			
-		
-		if(shopScrollPane != null) {
+
+
+		if (shopScrollPane != null) {
 			leftPanel.remove(shopScrollPane);
 		}
-		
+
 		JPanel shopContainer = new JPanel();
 		shopContainer.setLayout(new GridLayout(100, 1, 0, 10));
 
-		for (StockView display : stockDisplayList) {	
+		for (StockView display : stockDisplayList) {
 			shopContainer.add(display);
 			display.setVisible(true);
 		}
-		
+
 		shopScrollPane = new JScrollPane(shopContainer);
 		leftPanel.add(shopScrollPane);
 
 		this.pack();
 
 	}
-	
-	public void restart(ReceiptView rView) {	
+
+	public void restart(ReceiptView rView) {
 		UserKioskView userView = new UserKioskView();
 		UserKioskViewController shopController = new UserKioskViewController(userView);
 
 		userView.setLocationRelativeTo(this);
-		
+
 		this.dispose();
 		userView.setVisible(true);
 		userView.setReceiptPosition(rView);
@@ -189,15 +175,15 @@ public class UserKioskView extends JFrame implements ActionListener{
 	}
 
 	public void addQuantityListener(ChangeListener listener) {
-		for(StockView container: stockList.getStock()) {
+		for (StockView container : stockList.getStock()) {
 
-			if(container.getQuantity() != null) {
+			if (container.getQuantity() != null) {
 				container.getQuantity().addChangeListener(listener);
 			} else {
 				System.out.println("Didn't add listener (out of stock)");
 			}
 
-		}	
+		}
 	}
 
 	public void addCheckoutCashButtonListener(ActionListener listener) {
@@ -207,9 +193,9 @@ public class UserKioskView extends JFrame implements ActionListener{
 	public void addCheckoutCardButtonListener(ActionListener listener) {
 		btnCheckoutCard.addActionListener(listener);
 	}
-	
+
 	public void addButtonListener(ActionListener listener) {
-		for(StockView container: stockList.getStock()) {
+		for (StockView container : stockList.getStock()) {
 			container.getButton().addActionListener(listener);
 		}
 	}
@@ -219,8 +205,8 @@ public class UserKioskView extends JFrame implements ActionListener{
 	}
 
 	public StockView getStockDisplayFromButton(JButton button) {
-		for(StockView container : stockList.getStock()) {
-			if(container.getButton() == button) {
+		for (StockView container : stockList.getStock()) {
+			if (container.getButton() == button) {
 				return container;
 			}
 		}
@@ -229,18 +215,18 @@ public class UserKioskView extends JFrame implements ActionListener{
 	}
 
 	public StockView getStockDisplayFromSpinner(JSpinner spinner) {
-		for(StockView container : stockList.getStock()) {
-			if(container.getQuantity() == spinner) {
+		for (StockView container : stockList.getStock()) {
+			if (container.getQuantity() == spinner) {
 				return container;
 			}
 		}
 
 		return null;
 	}
-	
+
 	public void setReceiptPosition(ReceiptView rView) {
 		JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(rView);
-		
+
 		topFrame.setLocationRelativeTo(null);
 	}
 

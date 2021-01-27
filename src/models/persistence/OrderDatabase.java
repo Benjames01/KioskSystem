@@ -1,10 +1,12 @@
-package models;
+package models.persistence;
+
+import persistence.OrderDAO;
+import views.gui.OrderView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import persistence.OrderDAO;
-import views.OrderView;
+import models.Order;
 
 public class OrderDatabase {
 
@@ -18,11 +20,11 @@ public class OrderDatabase {
 		}
 	}
 
-	public ArrayList<Order> getOrders(){
-		return dao.getAllOrders();	
+	public ArrayList<Order> getOrders() {
+		return dao.getAllOrders();
 	}
 
-	public void removeOrder(int id){
+	public void removeOrder(int id) {
 		dao.removeOrder(id);
 	}
 
@@ -33,7 +35,7 @@ public class OrderDatabase {
 	public ArrayList<OrderView> getOrderViews(ArrayList<Order> orderList) {
 		ArrayList<OrderView> orderDisplayList = new ArrayList<>();
 
-		for(Order order : orderList) {
+		for (Order order : orderList) {
 			OrderView temp = new OrderView(order);
 
 			orderDisplayList.add(temp);

@@ -1,32 +1,16 @@
 package views;
 
-import java.awt.Dimension;
+import models.Stock;
+import views.gui.OrderView;
+
+import javax.swing.*;
+import javax.swing.event.PopupMenuListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JTable;
-
-import models.Order;
-import models.Stock;
-
-import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.PopupMenuListener;
-import javax.swing.JScrollPane;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JTextField;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 public class StockDatabaseView extends JFrame implements ActionListener {
 
@@ -59,23 +43,23 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 
 	Stock editStock = new Stock();
 
-	public StockDatabaseView(){
-		super("Stock Database");   	    
+	public StockDatabaseView() {
+		super("Stock Database");
 		this.setLocationRelativeTo(null);
-		
+
 		setupLayout();
 		setupContent();
 
-		this.addWindowListener(new WindowAdapter(){
-			public void windowClosing(WindowEvent e){
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
 	}
 
-	public void setupLayout() {    	
+	public void setupLayout() {
 		this.setResizable(false);
-		this.setPreferredSize(new Dimension(500,500));    
+		this.setPreferredSize(new Dimension(500, 500));
 	}
 
 	public void setupContent() {
@@ -84,7 +68,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		this.setContentPane(content);
 		content.setLayout(new GridLayout(2, 1, 0, 0));
 
-		stockList = new JTable();        
+		stockList = new JTable();
 		stockList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		JScrollPane scrollPane = new JScrollPane(stockList);
@@ -180,10 +164,10 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		return stockList;
 	}
 
-	public void setOrderList(ArrayList<OrderView> orderList) {	
+	public void setOrderList(ArrayList<OrderView> orderList) {
 		this.orderList = orderList;
 
-		if(scrollOrderPane != null) {
+		if (scrollOrderPane != null) {
 			orderPanel.remove(scrollOrderPane);
 		}
 
@@ -191,7 +175,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		orderContainer = new JPanel();
 		orderContainer.setLayout(new GridLayout(100, 1, 0, 10));
 
-		for (OrderView display : orderList) {	
+		for (OrderView display : orderList) {
 			orderContainer.add(display);
 			display.setVisible(true);
 		}
@@ -203,8 +187,8 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 	}
 
 	public OrderView getOrderViewFromButton(JButton button) {
-		for(OrderView container : orderList) {
-			if(container.getButton() == button) {
+		for (OrderView container : orderList) {
+			if (container.getButton() == button) {
 				return container;
 			}
 		}
@@ -217,9 +201,9 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 	}
 
 	public OrderView addButtonListenerToOrderView(ActionListener listener, int id) {
-		for(OrderView container : orderList) {
-			if(container.getOrder().getID() == id) {
-				System.out.println("Added listener to orderID: " + id );
+		for (OrderView container : orderList) {
+			if (container.getOrder().getID() == id) {
+				System.out.println("Added listener to orderID: " + id);
 				container.getButton().addActionListener(listener);
 			}
 		}
@@ -261,7 +245,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 	}
 
 	public Stock getStock() {
-		editStock = new Stock(getCode(), getName(), getPrice(), getQuantity());	
+		editStock = new Stock(getCode(), getName(), getPrice(), getQuantity());
 		return editStock;
 	}
 
@@ -284,7 +268,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		int parsedInt = 0;
 		try {
 			parsedInt = Integer.parseInt(text);
-		} catch (Exception e){
+		} catch (Exception e) {
 			displayMessage(e.getMessage());
 		}
 		return parsedInt;
@@ -294,7 +278,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		float parsedFloat = 0;
 		try {
 			parsedFloat = Float.parseFloat(text);
-		} catch (Exception e){
+		} catch (Exception e) {
 			displayMessage(e.getMessage());
 		}
 		return parsedFloat;
@@ -323,6 +307,7 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 	public void addSwitchToKioskListener(ActionListener listener) {
 		btnSwitchToKiosk.addActionListener(listener);
 	}
+
 	public void addPopupMenuListener(PopupMenuListener listener) {
 		tableControls.addPopupMenuListener(listener);
 	}
@@ -331,12 +316,12 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 		JOptionPane.showMessageDialog(this, msg);
 	}
 
-	public int getConfirmation(String msg) {	
+	public int getConfirmation(String msg) {
 		return JOptionPane.showConfirmDialog(this, msg);
 	}
 
 	public void addOrderButtonListener(ActionListener listener) {
-		for(OrderView container: orderList) {
+		for (OrderView container : orderList) {
 			container.getButton().addActionListener(listener);
 		}
 	}

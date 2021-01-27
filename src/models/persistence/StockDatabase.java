@@ -1,17 +1,20 @@
-package models;
+package models.persistence;
+
+import persistence.StockDAO;
+import views.gui.BasketView;
+
+import javax.swing.table.AbstractTableModel;
+
+import models.Stock;
+import models.lists.ShoppingBasket;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.table.AbstractTableModel;
-
-import persistence.StockDAO;
-import views.BasketView;
-
 public class StockDatabase extends AbstractTableModel {
 
 	static final long serialVersionUID = 3883657244070052671L;
-	String[] columnNames = {"code", "name", "price", "quantity"}; 
+	String[] columnNames = {"code", "name", "price", "quantity"};
 
 	StockDAO dao;
 
@@ -21,7 +24,7 @@ public class StockDatabase extends AbstractTableModel {
 
 
 	public StockDatabase(boolean useDB) throws SQLException {
-		this.useDB = useDB;	
+		this.useDB = useDB;
 		if (useDB) {
 			try {
 				dao = new StockDAO();
@@ -32,21 +35,9 @@ public class StockDatabase extends AbstractTableModel {
 		}
 	}
 
-
-	public float getTotal() {
-
-		float total = 0f;
-
-		for(Stock stock : stockDatabase) {
-			total += stock.getPrice();
-		}
-
-		return total;
-	}
-
 	public void updateStockFromBasket(ShoppingBasket basket) {
-		for(BasketView bView : basket.getBasket()) {
-			Stock stock = getStockFromCode(bView.getStock().code);
+		for (BasketView bView : basket.getBasket()) {
+			Stock stock = getStockFromCode(bView.getStock().getCode());
 			stock.setQuantity(stock.getQuantity() - bView.getStock().getQuantity());
 			addStock(stock);
 		}
@@ -55,62 +46,53 @@ public class StockDatabase extends AbstractTableModel {
 
 	public void addStock(Stock stock) {
 		Stock oldStock = getStockFromCode(stock.getCode());
-		if( oldStock != null) {
+		if (oldStock != null) {
 			editStock(oldStock, stock);
 		} else {
 			stockDatabase.add(stock);
-		}		
+		}
 
-		if(useDB) {
+		if (useDB) {
 			dao.addStock(stock);
 		}
 
 	}
 
-	public void removeStock(Stock stock) {
-		stockDatabase.remove(stock);
-
-		if(useDB) {
-			dao.removeStock(stock);
-		}
-
-	}
-
-	public void editStock(Stock stock, Stock newStock) {
+	void editStock(Stock stock, Stock newStock) {
 		int index = stockDatabase.indexOf(stock);
 		stockDatabase.set(index, newStock);
 
-		if(useDB) {
+		if (useDB) {
 			dao.addStock(stock);
 		}
 	}
 
 
-	public Stock getStockFromCode(int code) {	
-		for(Stock stock: stockDatabase) {
-			if(stock.code == code) {
+	public Stock getStockFromCode(int code) {
+		for (Stock stock : stockDatabase) {
+			if (stock.getCode() == code) {
 				return stock;
 			}
 		}
 		return null;
 	}
 
-	public Stock getStockAt(int index) {	
+	public Stock getStockAt(int index) {
 		return stockDatabase.get(index);
 	}
 
-	public void removeStockAt(int index) {			
+	public void removeStockAt(int index) {
 		dao.removeStock(stockDatabase.get(index));
 		stockDatabase.remove(index);
 
 	}
 
-	public ArrayList<Stock> getEmptyStock(){
+	public ArrayList<Stock> getEmptyStock() {
 
-		ArrayList<Stock> emptyStock = new ArrayList<Stock>();
+		ArrayList<Stock> emptyStock = new ArrayList<>();
 
-		for(Stock stock : stockDatabase) {
-			if(stock.quantity == 0) {
+		for (Stock stock : stockDatabase) {
+			if (stock.getQuantity() == 0) {
 				emptyStock.add(stock);
 			}
 		}
@@ -118,15 +100,9 @@ public class StockDatabase extends AbstractTableModel {
 		return emptyStock;
 	}
 
-	public ArrayList<Stock> getAllStock(){
-
-		return dao.getAllStock();
-
-	}
-
 	@Override
 	public Class<?> getColumnClass(int col) {
-		switch (col){
+		switch (col) {
 		case 1:
 			return String.class;
 		case 2:
@@ -163,7 +139,7 @@ public class StockDatabase extends AbstractTableModel {
 	public Object getValueAt(int row, int col) {
 		Object obj = null;
 		switch (col) {
-		case 0: 
+		case 0:
 			obj = stockDatabase.get(row).getCode();
 			break;
 		case 1:
