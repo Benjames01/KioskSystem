@@ -100,7 +100,7 @@ public class StockView extends JPanel {
 
 	public void setSliderMax(int max) {
 
-		if (max == 0) {
+		if (max <= 0) {
 			sliderQuantity = new JSpinner();
 			sliderQuantity.setEnabled(false);
 			String temp = lblCode.getText();

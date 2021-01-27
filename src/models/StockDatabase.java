@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 import persistence.StockDAO;
+import views.BasketView;
 
 public class StockDatabase extends AbstractTableModel {
 
@@ -43,9 +44,14 @@ public class StockDatabase extends AbstractTableModel {
 		return total;
 	}
 
-	public ArrayList<Stock> getShoppingBasket(){
-		return stockDatabase;
+	public void updateStockFromBasket(ShoppingBasket basket) {
+		for(BasketView bView : basket.getBasket()) {
+			Stock stock = getStockFromCode(bView.getStock().code);
+			stock.setQuantity(stock.getQuantity() - bView.getStock().getQuantity());
+			addStock(stock);
+		}
 	}
+
 
 	public void addStock(Stock stock) {
 		Stock oldStock = getStockFromCode(stock.getCode());

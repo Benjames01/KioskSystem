@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import models.ShoppingBasket;
 import models.Stock;
+import views.BasketView;
 import views.StockView;
 
 public class StockDAO extends DAO {
@@ -191,6 +193,9 @@ public class StockDAO extends DAO {
 
 		return allStock;
 	}
+	
+	
+
 
 
 	public ArrayList<StockView> getStockDisplayContainers(ArrayList<Stock> stockList) {
@@ -210,7 +215,7 @@ public class StockDAO extends DAO {
 		ArrayList<Stock> emptyStock = new ArrayList<Stock>();
 
 		Statement sql = getConnection().createStatement();
-		ResultSet results = sql.executeQuery("SELECT code, name, price, quantity FROM stock WHERE quantity=0;");
+		ResultSet results = sql.executeQuery("SELECT code, name, price, quantity FROM stock WHERE quantity<=0;");
 
 
 		while(results.next()) {
@@ -224,11 +229,6 @@ public class StockDAO extends DAO {
 		sql.close();
 
 		return emptyStock;
-	}
-
-
-	public Stock getStockByCode(int code ) {
-		return new Stock();
 	}
 
 }

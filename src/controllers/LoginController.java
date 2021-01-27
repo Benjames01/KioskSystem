@@ -40,9 +40,6 @@ public class LoginController {
 	}
 
 	public boolean checkCredentials(Credentials user) {	
-		if (user.getUsername().equalsIgnoreCase("admin") && user.getPassword().equals("admin")) {
-			return true;
-		}
-		return false;
+		return user.getUsername().equalsIgnoreCase("admin") && user.getPassword().equals("admin");
 	}
 } 

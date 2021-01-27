@@ -13,6 +13,11 @@ public class ShoppingBasket {
 		basket = new ArrayList<BasketView>();
 	}
 
+	public ShoppingBasket(ShoppingBasket basket) {
+		this.basket = basket.getBasket();
+	}
+	
+	
 	public ArrayList<BasketView> getBasket(){
 		return basket;
 	}
@@ -26,6 +31,5 @@ public class ShoppingBasket {
 
 		return total;
 	}
-
-
+	
 }

@@ -1,24 +1,25 @@
 package controllers;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import models.ShoppingBasket;
 import models.Stock;
 import models.StockDatabase;
 import models.StockViewList;
-import persistence.StockDAO;
 import views.BasketView;
-import views.OrderView;
+import views.CardEntryView;
+import views.ReceiptView;
 import views.StaffLoginView;
 import views.StockView;
 import views.UserKioskView;
@@ -27,20 +28,31 @@ public class UserKioskViewController {
 
 	StockViewList userStockView;
 	ShoppingBasket basket;
+	StockDatabase stockDB;
 
 	UserKioskView view;
+	
+	ReceiptView rView;
 
 	public UserKioskViewController(UserKioskView view) {
 
 		this.view = view;
+		view.setLocationRelativeTo(null);
 
 		basket = new ShoppingBasket();
 		userStockView = new StockViewList();
+		try {
+			stockDB = new StockDatabase(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		view.setStockDisplayList(userStockView.getStock());
 		view.addButtonListener(new DisplayButtonListener());
 		view.addQuantityListener(new DisplayQuantityListener());
 		view.addAdminButtonListener(new AdminButtonListener());
+		view.addCheckoutCardButtonListener(new CardCheckoutListener());
+		view.addCheckoutCashButtonListener(new CashCheckoutListener());
 	}
 
 	class DisplayQuantityListener implements ChangeListener{
@@ -69,7 +81,6 @@ public class UserKioskViewController {
 		}
 
 	}
-
 
 	class DisplayButtonListener implements ActionListener{
 
@@ -121,6 +132,107 @@ public class UserKioskViewController {
 			}
 
 		}	
+	}	
+
+	class CardCheckoutListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			if(basket.getBasket().isEmpty()) {
+				return;
+			}
+
+			CardEntryView cView = new CardEntryView();
+			rView = new ReceiptView(0, false, basket);
+			CardController controller = new CardController(cView, rView);		
+
+			cView.setVisible(true);
+			cView.setLocationRelativeTo(null);
+
+
+
+			Thread thread = new Thread() {
+				public void run(){			
+					while(!rView.hasBeenCreated()) {
+						try {
+							Thread.sleep(100);
+						} catch(Exception e) {
+							e.printStackTrace();
+						}
+					}
+					
+					if(rView.hasBeenCreated()) {
+						
+						stockDB.updateStockFromBasket(basket);
+						basket.getBasket().clear();
+						
+						view.setBasketDisplayList(basket.getBasket());
+						view.getTotalLabel().setText("Total Price: £" + String.format("%.2f", basket.getTotal()));
+						
+						view.restart(rView);
+					}
+				}
+			};
+			thread.start();
+		}
+	}
+
+	class CashCheckoutListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			if(basket.getBasket().isEmpty()) {
+				return;
+			}
+
+			SpinnerNumberModel sModel = new SpinnerNumberModel(basket.getTotal(), basket.getTotal(), 1000, 0.01f);
+			JSpinner spinner = new JSpinner(sModel);
+
+			int optionChosen = JOptionPane.showOptionDialog(null, spinner, "Enter cash given: ",
+					JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+			if (optionChosen == JOptionPane.OK_OPTION) {
+				System.out.println((float)((double)spinner.getValue()));
+				float cashGiven =   (float)((double)spinner.getValue());
+
+				rView = new ReceiptView(cashGiven, true, basket);
+				rView.initialise();
+
+				JFrame frame = new JFrame();
+				frame.setPreferredSize(new Dimension(350,600));
+				frame.add(rView);
+				frame.pack();
+				frame.setLocationRelativeTo(null);
+				frame.setVisible(true);		
+
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						if(rView.hasBeenCreated()) {
+							stockDB.updateStockFromBasket(basket);
+							basket.getBasket().clear();
+							view.setBasketDisplayList(basket.getBasket());
+							view.getTotalLabel().setText("Total Price: £" + String.format("%.2f", basket.getTotal()));
+							
+							view.restart(rView);
+						}
+
+						try {
+							Thread.sleep(100);
+						} catch(Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+
+
+
+
+			}
+
+		}
 	}
 
 	class AdminButtonListener implements ActionListener {
@@ -132,9 +244,9 @@ public class UserKioskViewController {
 
 			view.dispose();
 			staffView.setVisible(true);
+			staffView.setLocationRelativeTo(null);
 
 		}
-
 	}
 
 }

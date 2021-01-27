@@ -19,8 +19,10 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeListener;
 
+import controllers.UserKioskViewController;
 import models.StockViewList;
 
 import javax.swing.JLabel;
@@ -45,10 +47,16 @@ public class UserKioskView extends JFrame implements ActionListener{
 	JPanel leftPanel;
 
 	JButton btnAdminLogin;
+	JButton btnCheckoutCash;
+	JButton btnCheckoutCard;
+
 	JLabel lblTotalPrice;
 
 	public UserKioskView() {
 		super("Kiosk - User View");
+		this.setLocationRelativeTo(null);
+		
+		stockList = new StockViewList();
 
 		Dimension prefSize = new Dimension(1080,720);
 		this.setSize(prefSize);
@@ -100,14 +108,11 @@ public class UserKioskView extends JFrame implements ActionListener{
 		JPanel panel = new JPanel();
 		rightPanel.add(panel, BorderLayout.SOUTH);
 
-		JButton btnCheckoutCash = new JButton("Checkout Cash");
+		btnCheckoutCash = new JButton("Checkout Cash");
 		panel.add(btnCheckoutCash);
 
-		JButton btnCheckoutCard = new JButton("Checkout Card");
+		btnCheckoutCard = new JButton("Checkout Card");
 		panel.add(btnCheckoutCard);
-
-		JButton btnClearBasket = new JButton("Clear Basket");
-		panel.add(btnClearBasket);
 
 		this.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent e){
@@ -116,11 +121,10 @@ public class UserKioskView extends JFrame implements ActionListener{
 		});
 	}
 
-
-	public JLabel getTotalLabel()
-	{
+	public JLabel getTotalLabel(){
 		return lblTotalPrice;
 	}
+
 	public void setBasketDisplayList(ArrayList<BasketView> shoppingBasketList) {	
 		this.shoppingBasketList = shoppingBasketList;
 
@@ -145,23 +149,38 @@ public class UserKioskView extends JFrame implements ActionListener{
 
 	}
 
-
-
 	public void setStockDisplayList(ArrayList<StockView> stockDisplayList) {	
 		stockList.setStock(stockDisplayList);
-
+			
+		
+		if(shopScrollPane != null) {
+			leftPanel.remove(shopScrollPane);
+		}
+		
 		JPanel shopContainer = new JPanel();
 		shopContainer.setLayout(new GridLayout(100, 1, 0, 10));
 
 		for (StockView display : stockDisplayList) {	
 			shopContainer.add(display);
+			display.setVisible(true);
 		}
-
+		
 		shopScrollPane = new JScrollPane(shopContainer);
 		leftPanel.add(shopScrollPane);
 
 		this.pack();
 
+	}
+	
+	public void restart(ReceiptView rView) {	
+		UserKioskView userView = new UserKioskView();
+		UserKioskViewController shopController = new UserKioskViewController(userView);
+
+		userView.setLocationRelativeTo(this);
+		
+		this.dispose();
+		userView.setVisible(true);
+		userView.setReceiptPosition(rView);
 	}
 
 	@Override
@@ -181,6 +200,14 @@ public class UserKioskView extends JFrame implements ActionListener{
 		}	
 	}
 
+	public void addCheckoutCashButtonListener(ActionListener listener) {
+		btnCheckoutCash.addActionListener(listener);
+	}
+
+	public void addCheckoutCardButtonListener(ActionListener listener) {
+		btnCheckoutCard.addActionListener(listener);
+	}
+	
 	public void addButtonListener(ActionListener listener) {
 		for(StockView container: stockList.getStock()) {
 			container.getButton().addActionListener(listener);
@@ -209,6 +236,12 @@ public class UserKioskView extends JFrame implements ActionListener{
 		}
 
 		return null;
+	}
+	
+	public void setReceiptPosition(ReceiptView rView) {
+		JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(rView);
+		
+		topFrame.setLocationRelativeTo(null);
 	}
 
 

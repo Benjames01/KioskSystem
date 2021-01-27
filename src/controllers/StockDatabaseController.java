@@ -29,16 +29,16 @@ public class StockDatabaseController {
 	OrderDatabase orderDB;
 	StockDatabaseView view;
 
-	ArrayList<OrderView> ordersList;
 
 	public StockDatabaseController(StockDatabaseView view) {
 		this.view = view;
-
+		view.setLocationRelativeTo(null);
+		
 		try {
 			model = new StockDatabase(true);
 			orderDB = new OrderDatabase();
 
-			ordersList = orderDB.getOrderViews(orderDB.getOrders());
+			orderDB.getOrderViews(orderDB.getOrders());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,7 +53,7 @@ public class StockDatabaseController {
 		view.addSwitchToKioskListener(new SwitchKioskListener());
 
 		view.getStockList().setModel(model);
-		view.setOrderList(ordersList);
+		view.setOrderList(orderDB.getOrderViews(orderDB.getOrders()));
 
 		view.addOrderButtonListener(new OrderButtonListener());
 
@@ -108,12 +108,10 @@ public class StockDatabaseController {
 		@Override
 		public void actionPerformed(ActionEvent e) {		
 			int index = view.getSelectedStockIndex();
-			if (index > -1) {
-				if(view.getConfirmation("Are you sure you want to delete?") == 0) {
+			if (index > -1 && view.getConfirmation("Are you sure you want to delete?") == 0) {
 					model.removeStockAt(index);
 					view.displayMessage("Deleted Successfully!");	
-					model.fireTableDataChanged();
-				} 	
+					model.fireTableDataChanged();				
 			}		
 		}
 	}
@@ -137,16 +135,13 @@ public class StockDatabaseController {
 				model.fireTableDataChanged();
 
 				orderDB.removeOrder(order.getID());
-				ordersList = orderDB.getOrderViews(orderDB.getOrders());
 
-				view.setOrderList(ordersList);
+				view.setOrderList(orderDB.getOrderViews(orderDB.getOrders()));
 				view.addOrderButtonListener(new OrderButtonListener());
 			}
 
 		}
 	}
-
-
 
 	class OrderListener implements ActionListener{
 

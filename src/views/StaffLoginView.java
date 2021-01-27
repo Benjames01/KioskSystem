@@ -28,6 +28,7 @@ public class StaffLoginView extends JFrame implements ActionListener {
 
 	public StaffLoginView(){
 		super("use username & password: admin");
+		this.setLocationRelativeTo(null);
 
 		txtUsername = new JTextField(15);
 		txtPassword = new JPasswordField(15);

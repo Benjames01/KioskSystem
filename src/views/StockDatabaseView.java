@@ -61,7 +61,8 @@ public class StockDatabaseView extends JFrame implements ActionListener {
 
 	public StockDatabaseView(){
 		super("Stock Database");   	    
-
+		this.setLocationRelativeTo(null);
+		
 		setupLayout();
 		setupContent();
 

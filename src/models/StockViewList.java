@@ -8,12 +8,14 @@ import views.StockView;
 
 public class StockViewList {
 
-	ArrayList<StockView> stock;
+	StockDAO stockDB;
+	
+	ArrayList<StockView> stock = new ArrayList<StockView>();
 
 	public StockViewList() {
 
 		try {
-			StockDAO stockDB = new StockDAO();
+			stockDB = new StockDAO();
 			stock = stockDB.getStockDisplayContainers(stockDB.getAllStock());
 
 		} catch (ClassNotFoundException | SQLException e) {
